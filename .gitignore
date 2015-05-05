@@ -1,0 +1,8 @@
+# Ignore PHPStorm project files
+.idea
+
+# Ignore map files
+*.css.map
+
+# Ignore OSX generated files
+.DS_Store

@@ -1,0 +1,100 @@
+@mixin triangle($direction, $color, $size) {
+  display: block;
+  content: '';
+  width: 0;
+  height: 0;
+  position: absolute;
+  border: $size solid;
+  border-color: transparent;
+  @if $direction == top {
+    border-bottom-color: $color;
+  }
+  @else if $direction == bottom {
+    border-top-color: $color;
+  }
+  @else if $direction == left {
+    border-right-color: $color;
+  }
+  @else if $direction == right {
+    border-left-color: $color;
+  }
+}
+
+@mixin triangle-outer($direction, $color, $size) {
+  @include triangle($direction, $color, $size);
+  @if $direction == top {
+    top: -2*$size;
+    left: 50%;
+    margin-left: -$size;
+  }
+  @else if $direction == bottom {
+    bottom: -2*$size;
+    left: 50%;
+    margin-left: -$size;
+  }
+  @else if $direction == left {
+    left: -2*$size;
+    top: 50%;
+    margin-top: -$size;
+  }
+  @else if $direction == right {
+    right: -2*$size;
+    top: 50%;
+    margin-top: -$size;
+  }
+}
+
+@mixin triangle-inner($direction, $color, $size) {
+  @if $direction == top {
+    @include triangle(bottom, $color, $size);
+    top: 0;
+    left: 50%;
+    margin-left: -$size;
+  }
+  @else if $direction == bottom {
+    @include triangle(top, $color, $size);
+    bottom: 0;
+    left: 50%;
+    margin-left: -$size;
+  }
+  @else if $direction == left {
+    @include triangle(right, $color, $size);
+    left: 0;
+    top: 50%;
+    margin-top: -$size;
+  }
+  @else if $direction == right {
+    @include triangle(left, $color, $size);
+    right: 0;
+    top: 50%;
+    margin-top: -$size;
+  }
+}
+
+@mixin triangle-center($direction, $color, $size) {
+  @include triangle($direction, $color, $size);
+  @if $direction == top {
+    top: 50%;
+    left: 50%;
+    margin-top: -$size*1.5;
+    margin-left: -$size;
+  }
+  @else if $direction == bottom {
+    top: 50%;
+    left: 50%;
+    margin-top: -$size*0.5;
+    margin-left: -$size;
+  }
+  @else if $direction == left {
+    top: 50%;
+    left: 50%;
+    margin-top: -$size;
+    margin-left: -$size*1.5;
+  }
+  @else if $direction == right {
+    top: 50%;
+    left: 50%;
+    margin-top: -$size;
+    margin-left: -$size*0.5;
+  }
+}

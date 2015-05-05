@@ -1,0 +1,30 @@
+//SELECTORS
+$opacityClass: crumbnav--opacity;
+$navClass: crumbnav;
+$navUl: crumbnav-ul;
+$parentClass: crumbnav__parent;
+$openClass: sn-open;
+$currentClass: active;
+$rootClass: crumbnav__root;
+$breadcrumbClass: crumbnav-crumb;
+$buttonClass: crumbnav__button;
+$buttonMenuClass: crumbnav__button--menu;
+$buttonRootsMenuClass: crumbnav__button--root-menu;
+$multipleRootsClass: crumbnav--multiple-roots;
+$rootsOpenClass: sn-open-roots;
+
+//COLORS
+$navTextColor: #eeeeee;
+$currentNavTextColor: #62c657;
+$firstLevelColor: #3a3a3a;
+$secondLevelColor: #585858;
+$thirdLevelColor: #6d6d6d;
+$fourthLevelColor: #969696;
+$fifthLevelColor: #acacac;
+$currentColor: #c6c6c6;
+$arrowbuttonColor: #62c657;
+$breadcrumbArrowColor: $arrowbuttonColor;
+
+//DIMENSIONS
+$elementHeight: 50px;
+$indent: 15px;

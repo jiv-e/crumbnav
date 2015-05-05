@@ -1,0 +1,216 @@
+/* crumbnav Theme Styles */
+@import "mixins";
+
+.#{$navUl} {
+
+  li.#{$currentClass} > a {
+    //background-color: $currentColor;
+    color: $currentNavTextColor;
+    font-weight: bold;
+  }
+
+	li > a {
+		padding: 0 1em;
+		color: $navTextColor;
+		border-bottom: 1px solid rgba(0,0,0,.15);
+	}
+
+  > li > a {
+		background: $firstLevelColor;
+  }
+  ul li > a {
+    background: $secondLevelColor;
+  }
+  ul ul li > a {
+		background: $thirdLevelColor;
+	}
+  ul ul ul > li > a {
+		background: $fourthLevelColor;
+	}
+  ul ul ul ul > li > a {
+    background: $fifthLevelColor;
+	}
+}
+
+.#{$breadcrumbClass} {
+
+  & > a:after {
+    @include triangle-outer(right, red, 10px);
+    z-index: 1;
+  }
+  &.#{$breadcrumbClass}-out-0 > a:after {
+    border-left-color: $firstLevelColor;
+  }
+  &.#{$breadcrumbClass}-out-1 > a:after {
+    border-left-color: $secondLevelColor;
+  }
+  &.#{$breadcrumbClass}-out-2 > a:after {
+    border-left-color: $thirdLevelColor;
+  }
+  &.#{$breadcrumbClass}-out-3 > a:after {
+    border-left-color: $thirdLevelColor;
+  }
+  &.#{$currentClass} > a:after {
+    border-left-color: transparent;
+  }
+}
+
+// Indent current item
+.#{$breadcrumbClass}-in-0 > a {
+  padding-left: $indent*2;
+}
+.#{$multipleRootsClass} .#{$breadcrumbClass}-in-0 > a {
+  padding-left: $elementHeight;
+}
+
+.#{$navClass} .#{$rootsOpenClass} {
+  > a {
+   padding-left: $elementHeight;
+  }
+  &.#{$breadcrumbClass} > a {
+    color: $currentNavTextColor;
+  }
+}
+
+
+//Submenu open only
+.#{$breadcrumbClass}.#{$openClass} {
+  ul li > a {
+    padding-left: $indent*2;
+  }
+  ul ul li > a {
+    padding-left: $indent*3;
+  }
+  ul ul ul > li > a {
+    padding-left: $indent*4;
+  }
+  ul ul ul ul > li > a {
+    padding-left: $indent*5;
+  }
+}
+
+
+//Menu open
+.#{$navClass}.#{$openClass} {
+
+  ul li > a {
+    padding-left: $indent*2;
+  }
+  ul ul li > a {
+    padding-left: $indent*3;
+  }
+  ul ul ul > li > a {
+    padding-left: $indent*4;
+  }
+  ul ul ul ul > li > a {
+    padding-left: $indent*5;
+  }
+  //Remove right side triangles from open menu
+  .#{$breadcrumbClass} > a:after{
+    border-color: transparent;
+  }
+  //Open menu style breadcrumb trail indicators
+  .#{$breadcrumbClass}:not(.#{$breadcrumbClass}-out-0) {
+    &:after {
+      @include triangle-inner(top, $breadcrumbArrowColor, 10px);
+      z-index: 100;
+    }
+  }
+}
+
+//Menu with multiroot
+.#{$navClass}.#{$multipleRootsClass} {
+
+}
+
+//Multiroot menu open
+.#{$navClass}.#{$multipleRootsClass}.#{$rootsOpenClass} {
+  //TODO Refactor: dublicate code
+  //Remove right side triangles from open menu
+  .#{$breadcrumbClass} > a:after{
+    border-color: transparent;
+  }
+}
+
+//Menu open with multiroot
+.#{$navClass}.#{$multipleRootsClass}.#{$openClass} {
+
+  // Hide root menu when menu is open
+  > .#{$buttonClass}:first-child {
+    //display: none;
+  }
+  ul li > a {
+    padding-left: $elementHeight;
+  }
+  ul ul li > a {
+    padding-left: $indent*1 + $elementHeight;
+  }
+  ul ul ul > li > a {
+    padding-left: $indent*2 + $elementHeight;
+  }
+  ul ul ul ul > li > a {
+    padding-left: $indent*3 + $elementHeight;
+  }
+  ul ul ul ul ul > li > a {
+    padding-left: $indent*4 + $elementHeight;
+  }
+}
+
+//Submenu open with multiroot
+.#{$navClass}.#{$multipleRootsClass} .#{$breadcrumbClass}.#{$openClass} {
+  ul li > a {
+    padding-left: $indent*1 + $elementHeight;
+  }
+  ul ul li > a {
+    padding-left: $indent*2 + $elementHeight;
+  }
+  ul ul ul > li > a {
+    padding-left: $indent*3 + $elementHeight;
+  }
+  ul ul ul ul > li > a {
+    padding-left: $indent*4 + $elementHeight;
+  }
+  ul ul ul ul ul > li > a {
+    padding-left: $indent*5 + $elementHeight;
+  }
+}
+
+.#{$buttonClass} {
+  background: #acaca1;
+  background: rgba(0,0,0,.075);
+  text-align: center;
+  > i {
+    border: none;
+    color: #666;
+  }
+}
+
+.#{$buttonMenuClass} > i {
+  @include triangle-center(bottom, $arrowbuttonColor, 10px);
+}
+.#{$buttonMenuClass}.#{$openClass} > i {
+  @include triangle-center(top, $arrowbuttonColor, 10px);
+}
+.#{$buttonRootsMenuClass} > i {
+  @include triangle-center(left, $arrowbuttonColor, 10px);
+}
+.#{$buttonRootsMenuClass}.#{$rootsOpenClass} > i {
+  @include triangle-center(right, $arrowbuttonColor, 10px);
+}
+
+.#{$parentClass} > .#{$buttonClass} {
+  background: #acaca1;
+  background: rgba(0,0,0,.075);
+  text-align: center;
+  > i {
+    border: none;
+    color: #666;
+    background: url("../img/plus.png") center center no-repeat;
+  }
+}
+
+.#{$parentClass} > .#{$buttonClass}.#{$openClass} > i {
+  //Submenu button icon
+  background: url("../img/minus.png") center center no-repeat;
+}
+

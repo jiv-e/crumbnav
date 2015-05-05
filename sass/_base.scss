@@ -1,0 +1,169 @@
+/* crumbnav Base Styles */
+
+.#{$navClass} {
+  position: relative;
+  &.#{$rootsOpenClass} {
+    .#{$currentClass} {
+      display: none;
+    }
+    .#{$currentClass}.#{$breadcrumbClass}-out-0 {
+      display: block;
+    }
+  }
+  .#{$rootsOpenClass} {
+    display: block;
+    //TODO Refactor
+    &.#{$parentClass}.#{$breadcrumbClass} > a {
+      float: none;
+    }
+  }
+}
+
+.#{$navUl} {
+  &, ul {
+    position: relative;
+    padding: 0;
+  }
+  li {
+    position: relative;
+    display: none;
+    min-height: $elementHeight;
+    line-height: $elementHeight;
+  }
+  li.#{$currentClass} a {
+    clear: both;
+  }
+  li > a {
+    position: relative;
+    display: block;
+    height: 100%;
+  }
+
+  // Show contextual menu button (+)
+  & > .#{$buttonClass},
+  .#{$breadcrumbClass}-in-1 > .#{$buttonClass} {
+    display: block;
+  }
+  // Hide contextual menu button, if the menu is a second level menu
+  .#{$breadcrumbClass}-in-1.#{$breadcrumbClass}-out-0 > .#{$buttonClass} {
+    display: none;
+  }
+  li.#{$breadcrumbClass} {
+    display: block;
+  }
+  li.#{$rootsOpenClass} .#{$breadcrumbClass} {
+    display: none;
+  }
+}
+
+//Contextual submenu (+) positioned under the menu button (arrow down)
+.#{$breadcrumbClass}-in-1 > .#{$buttonClass} {
+  top: $elementHeight;
+}
+
+.#{$multipleRootsClass} {
+  .#{$rootClass} > a {
+    padding-left: $elementHeight;
+  }
+}
+
+//Make breadcrumb links clickable
+.#{$breadcrumbClass}-out-0 > a {z-index: 5;}
+.#{$breadcrumbClass}-out-1 > a {z-index: 4;}
+.#{$breadcrumbClass}-out-2 > a {z-index: 3;}
+.#{$breadcrumbClass}-out-3 > a {z-index: 2;}
+.#{$breadcrumbClass}-out-4 > a {z-index: 1;}
+
+
+.#{$navClass}.#{$openClass} .#{$buttonClass},
+.#{$breadcrumbClass}-in-1 .#{$buttonClass},
+.#{$buttonClass}.#{$openClass} {
+  display: block;
+}
+
+// Menu open
+.#{$navClass}.#{$openClass} {
+
+  .#{$buttonClass} {
+    display: block;
+  }
+  .#{$breadcrumbClass} > a {
+    float: none;
+  }
+  .#{$navUl}.#{$openClass} .#{$breadcrumbClass}-out-1 > .#{$buttonClass} {
+    top: 0;
+  }
+  li.#{$breadcrumbClass}, li.#{$currentClass} {
+    display: none;
+  }
+  li.#{$breadcrumbClass}.#{$openClass},
+  li.#{$breadcrumbClass}.#{$openClass} > ul > li,
+  li.#{$currentClass}.#{$openClass},
+  .#{$breadcrumbClass}-in-1.#{$breadcrumbClass}-out-0 .#{$buttonClass}{
+    display: block;
+  }
+
+  .#{$breadcrumbClass}-in-1 > .#{$buttonClass} {
+    top: 0;
+  }
+}
+
+.#{$breadcrumbClass}#{$openClass} {
+  > ul > li {
+    display: block;
+  }
+}
+
+.#{$parentClass}.#{$breadcrumbClass} {
+  > a {
+    float: left;
+  }
+  &-in-1 > a,
+  &.#{$currentClass} > a {
+    float: none;
+    overflow: hidden;
+  }
+}
+
+.#{$breadcrumbClass}.#{$openClass} {
+  > a {
+    float: none;
+  }
+}
+.#{$parentClass}.#{$openClass} {
+  > ul > li {
+    display: block;
+  }
+}
+
+.#{$buttonClass} {
+  position: absolute;
+  z-index: 100;
+  top: 0;
+  right: 0;
+  width: $elementHeight;
+  height: $elementHeight;
+  display: none;
+  cursor: pointer;
+  &:hover {
+    cursor: pointer;
+  }
+  > i {
+    position: relative;
+    height: $elementHeight;
+    width: $elementHeight;
+    display: block;
+  }
+}
+
+
+.#{$buttonRootsMenuClass},
+.#{$buttonMenuClass} {
+  display: block;
+  height: $elementHeight;
+}
+
+.#{$buttonRootsMenuClass} {
+  left: 0;
+  right: inherit;
+}

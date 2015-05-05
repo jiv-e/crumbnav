@@ -39,11 +39,14 @@ $.fn.crumbnav = (options) ->
     options
 
   $nav = $(@)
+  # TODO Add support for multiple menus? At the moment breaks javascript execution!
   $navUl = if $nav.children('ul').length == 1 then $nav.children('ul').addClass(settings.navClass+'-ul') else throw new Error("Unsupported number of ul's inside the navigation!");
-  $current = $('.'+settings.currentClass, $navUl)
+  $current = $('li.'+settings.currentClass, $navUl)
+  if $current.length > 1 then alert('Multiple active elements in the menu! There should be only one.')
   $root = $()
   $parents = $()
   $breadcrumb = $()
+  # TODO Should we use a button element?
   button = '<span class="'+settings.buttonClass+'"><i></i></span>'
 
   # Set some classes in the markup
@@ -81,7 +84,6 @@ $.fn.crumbnav = (options) ->
 
   # Add in touch buttons
   addButtons = ->
-    # TODO It's wrong to have span as a children of ul. Fix this!
     if $navUl.children('li').length > 1
       $nav.addClass(settings.multipleRootsClass)
       $navUl.before($(button).addClass(settings.buttonRootsMenuClass))
@@ -207,7 +209,7 @@ $.fn.crumbnav = (options) ->
         $parent.addClass(settings.openClass)
         $(@).addClass(settings.openClass)
         # If this contains the current element on the next level open that too
-        $parent.find('.'+settings.currentClass).addClass(settings.openClass).children('.'+settings.buttonClass).addClass(settings.openClass)
+        $current.addClass(settings.openClass).children('.'+settings.buttonClass).addClass(settings.openClass)
     )
 
   addListeners()
@@ -226,7 +228,7 @@ $.fn.crumbnav = (options) ->
   $(window).on('resize', resizer)
 
   removeBreadcrumbClasses = ->
-    $navUl.find('.'+settings.currentClass).removeClass(settings.currentClass)
+    $current.removeClass(settings.currentClass)
     $nav.find('.'+settings.openClass).removeClass(settings.openClass)
     re = new RegExp(settings.breadcrumbClass+'[^ ]*','g')
     $navUl.find('.'+settings.breadcrumbClass).each ->
@@ -236,6 +238,6 @@ $.fn.crumbnav = (options) ->
     removeBreadcrumbClasses()
     $nav.removeClass(settings.openClass)
     $newActive.parent('li').addClass(settings.currentClass)
-    $current = $('.'+settings.currentClass, $navUl)
+    $current = $('li.'+settings.currentClass, $navUl)
     addBreadcrumbClasses()
     addListeners()

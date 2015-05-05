@@ -45,7 +45,10 @@
         throw new Error("Unsupported number of ul's inside the navigation!");
       }
     })();
-    $current = $('.' + settings.currentClass, $navUl);
+    $current = $('li.' + settings.currentClass, $navUl);
+    if ($current.length > 1) {
+      alert('Multiple active elements in the menu! There should be only one.');
+    }
     $root = $();
     $parents = $();
     $breadcrumb = $();
@@ -194,7 +197,7 @@
         } else {
           $parent.addClass(settings.openClass);
           $(this).addClass(settings.openClass);
-          return $parent.find('.' + settings.currentClass).addClass(settings.openClass).children('.' + settings.buttonClass).addClass(settings.openClass);
+          return $current.addClass(settings.openClass).children('.' + settings.buttonClass).addClass(settings.openClass);
         }
       });
     };
@@ -207,7 +210,7 @@
     $(window).on('resize', resizer);
     removeBreadcrumbClasses = function() {
       var re;
-      $navUl.find('.' + settings.currentClass).removeClass(settings.currentClass);
+      $current.removeClass(settings.currentClass);
       $nav.find('.' + settings.openClass).removeClass(settings.openClass);
       re = new RegExp(settings.breadcrumbClass + '[^ ]*', 'g');
       return $navUl.find('.' + settings.breadcrumbClass).each(function() {
@@ -218,7 +221,7 @@
       removeBreadcrumbClasses();
       $nav.removeClass(settings.openClass);
       $newActive.parent('li').addClass(settings.currentClass);
-      $current = $('.' + settings.currentClass, $navUl);
+      $current = $('li.' + settings.currentClass, $navUl);
       addBreadcrumbClasses();
       return addListeners();
     };

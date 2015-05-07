@@ -137,15 +137,15 @@
   padding: 0 1em;
   color: #eeeeee;
   border-bottom: 1px solid rgba(0, 0, 0, 0.15); }
-.crumbnav > li > a {
+.crumbnav ul > li > a {
   background: #3a3a3a; }
-.crumbnav ul li > a {
-  background: #585858; }
 .crumbnav ul ul li > a {
+  background: #585858; }
+.crumbnav ul ul ul li > a {
   background: #6d6d6d; }
-.crumbnav ul ul ul > li > a {
-  background: #969696; }
 .crumbnav ul ul ul ul > li > a {
+  background: #969696; }
+.crumbnav ul ul ul ul ul > li > a {
   background: #acacac; }
 
 .crumbnav__title {

@@ -18,22 +18,23 @@
 		color: $navTextColor;
 		border-bottom: 1px solid rgba(0,0,0,.15);
 	}
-
-  > li > a {
-		background: $firstLevelColor;
+  ul {
+    > li > a {
+      background: $firstLevelColor;
+    }
+    ul li > a {
+      background: $secondLevelColor;
+    }
+    ul ul li > a {
+      background: $thirdLevelColor;
+    }
+    ul ul ul > li > a {
+      background: $fourthLevelColor;
+    }
+    ul ul ul ul > li > a {
+      background: $fifthLevelColor;
+    }
   }
-  ul li > a {
-    background: $secondLevelColor;
-  }
-  ul ul li > a {
-		background: $thirdLevelColor;
-	}
-  ul ul ul > li > a {
-		background: $fourthLevelColor;
-	}
-  ul ul ul ul > li > a {
-    background: $fifthLevelColor;
-	}
 }
 
 .#{$navTitleClass} {

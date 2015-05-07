@@ -20,8 +20,10 @@ $ ->
 $.fn.crumbnav = (options) ->
   settings = $.extend
     'navClass': 'crumbnav',
+    'navTitleClass': 'crumbnav__title',
     'parentClass': 'crumbnav__parent',
     'openClass': 'sn-open',
+    "rootsOpenClass": 'sn-open-roots',
     'rootClass': 'crumbnav__root',
     'currentClass': 'active',
     'breadcrumbClass': 'crumbnav-crumb',
@@ -29,7 +31,6 @@ $.fn.crumbnav = (options) ->
     "buttonMenuClass": 'crumbnav__button--menu',
     "buttonRootsMenuClass": 'crumbnav__button--root-menu',
     "multipleRootsClass": 'crumbnav--multiple-roots',
-    "rootsOpenClass": 'sn-open-roots',
     'largeClass': 'lg-screen',
     'smallClass': 'sm-screen',
     'hoverIntent': false,
@@ -40,7 +41,7 @@ $.fn.crumbnav = (options) ->
 
   $nav = $(@)
   # TODO Add support for multiple menus? At the moment breaks javascript execution!
-  $navUl = if $nav.children('ul').length == 1 then $nav.children('ul').addClass(settings.navClass+'-ul') else throw new Error("Unsupported number of ul's inside the navigation!");
+  $navUl = if $nav.children('ul').length == 1 then $nav.children('ul') else alert("Unsupported number of ul's inside the navigation!");
   $current = $('li.'+settings.currentClass, $navUl)
   if $current.length > 1 then alert('Multiple active elements in the menu! There should be only one.')
   $root = $()
@@ -49,14 +50,9 @@ $.fn.crumbnav = (options) ->
   # TODO Should we use a button element?
   button = '<span class="'+settings.buttonClass+'"><i></i></span>'
 
-  # Set some classes in the markup
-  addBasicClasses = ->
-    $navUl.addClass('with-js')
-
-  addBasicClasses()
-
-  @.test = ->
-    console.log(@)
+  # Add title if not present
+  if $nav.children('.'+settings.navTitleClass).length == 0
+    $nav.prepend('<div class="'+settings.navTitleClass+'">Menu</div>')
 
   addBreadcrumbClasses = ->
     # Breadcrumb trail
@@ -67,7 +63,6 @@ $.fn.crumbnav = (options) ->
       .addClass(settings.breadcrumbClass)
       .each (index) ->
         $(@).addClass(settings.breadcrumbClass+'-out-'+index+' '+settings.breadcrumbClass+'-in-'+($breadcrumbCount - index - 1))
-
 
   addBreadcrumbClasses()
 
@@ -80,11 +75,20 @@ $.fn.crumbnav = (options) ->
 
   addParentClasses()
 
-  $root = $navUl.children('.'+settings.parentClass+'.'+settings.breadcrumbClass).addClass(settings.rootClass)
+  # Set some classes in the markup
+  addBasicClasses = ->
+    $nav.addClass('with-js')
+    $current = $('li.'+settings.currentClass, $navUl)
+    if $current.length == 0
+    then $root = $nav.addClass(settings.rootClass)
+    else $root = $navUl.children('.'+settings.parentClass+'.'+settings.breadcrumbClass).addClass(settings.rootClass)
+
+  addBasicClasses()
+
 
   # Add in touch buttons
   addButtons = ->
-    if $navUl.children('li').length > 1
+    if $navUl.children('li').length > 1 && $current.length == 0
       $nav.addClass(settings.multipleRootsClass)
       $navUl.before($(button).addClass(settings.buttonRootsMenuClass))
     $navUl.after($(button).addClass(settings.buttonMenuClass))
@@ -229,6 +233,7 @@ $.fn.crumbnav = (options) ->
 
   removeBreadcrumbClasses = ->
     $current.removeClass(settings.currentClass)
+    $root.removeClass(settings.rootClass)
     $nav.find('.'+settings.openClass).removeClass(settings.openClass)
     re = new RegExp(settings.breadcrumbClass+'[^ ]*','g')
     $navUl.find('.'+settings.breadcrumbClass).each ->
@@ -240,4 +245,10 @@ $.fn.crumbnav = (options) ->
     $newActive.parent('li').addClass(settings.currentClass)
     $current = $('li.'+settings.currentClass, $navUl)
     addBreadcrumbClasses()
+    addBasicClasses()
+    #TODO Make DRY!
+    if $navUl.children('li').length > 1 && $current.length == 1
+      $nav.addClass(settings.multipleRootsClass)
+      if $('.'+settings.buttonRootsMenuClass).length == 0
+        $navUl.before($(button).addClass(settings.buttonRootsMenuClass))
     addListeners()

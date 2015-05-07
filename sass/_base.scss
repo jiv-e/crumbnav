@@ -12,15 +12,13 @@
   }
   .#{$rootsOpenClass} {
     display: block;
-    //TODO Refactor
+    //TODO Refactor?
     &.#{$parentClass}.#{$breadcrumbClass} > a {
       float: none;
     }
   }
-}
 
-.#{$navUl} {
-  &, ul {
+  ul {
     position: relative;
     padding: 0;
   }
@@ -40,7 +38,7 @@
   }
 
   // Show contextual menu button (+)
-  & > .#{$buttonClass},
+  & > ul > .#{$buttonClass},
   .#{$breadcrumbClass}-in-1 > .#{$buttonClass} {
     display: block;
   }
@@ -55,6 +53,18 @@
     display: none;
   }
 }
+
+.#{$navTitleClass} {
+  display: none;
+  height: 50px;
+  padding: 0 0 0 $elementHeight;
+  line-height: $elementHeight;
+  .#{$rootClass} & {
+    display: block;
+  }
+}
+
+
 
 //Contextual submenu (+) positioned under the menu button (arrow down)
 .#{$breadcrumbClass}-in-1 > .#{$buttonClass} {
@@ -90,7 +100,7 @@
   .#{$breadcrumbClass} > a {
     float: none;
   }
-  .#{$navUl}.#{$openClass} .#{$breadcrumbClass}-out-1 > .#{$buttonClass} {
+  .#{$breadcrumbClass}-out-1 > .#{$buttonClass} {
     top: 0;
   }
   li.#{$breadcrumbClass}, li.#{$currentClass} {
@@ -134,6 +144,10 @@
   > ul > li {
     display: block;
   }
+}
+
+.#{$navClass}.#{$openClass} > ul > li {
+  display: block;
 }
 
 .#{$buttonClass} {

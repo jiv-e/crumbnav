@@ -20,8 +20,10 @@
     var $breadcrumb, $current, $nav, $navUl, $parents, $root, $top_nav_items, addBasicClasses, addBreadcrumbClasses, addButtons, addListeners, addParentClasses, breakpoint, button, closeMenu, closeRootsMenu, count, nav_percent, nav_width, openMenu, openRootsMenu, removeBreadcrumbClasses, resetMenu, resizer, settings, showMenu;
     settings = $.extend({
       'navClass': 'crumbnav',
+      'navTitleClass': 'crumbnav__title',
       'parentClass': 'crumbnav__parent',
       'openClass': 'sn-open',
+      "rootsOpenClass": 'sn-open-roots',
       'rootClass': 'crumbnav__root',
       'currentClass': 'active',
       'breadcrumbClass': 'crumbnav-crumb',
@@ -29,7 +31,6 @@
       "buttonMenuClass": 'crumbnav__button--menu',
       "buttonRootsMenuClass": 'crumbnav__button--root-menu',
       "multipleRootsClass": 'crumbnav--multiple-roots',
-      "rootsOpenClass": 'sn-open-roots',
       'largeClass': 'lg-screen',
       'smallClass': 'sm-screen',
       'hoverIntent': false,
@@ -38,13 +39,7 @@
       'hover': true
     }, options);
     $nav = $(this);
-    $navUl = (function() {
-      if ($nav.children('ul').length === 1) {
-        return $nav.children('ul').addClass(settings.navClass + '-ul');
-      } else {
-        throw new Error("Unsupported number of ul's inside the navigation!");
-      }
-    })();
+    $navUl = $nav.children('ul').length === 1 ? $nav.children('ul') : alert("Unsupported number of ul's inside the navigation!");
     $current = $('li.' + settings.currentClass, $navUl);
     if ($current.length > 1) {
       alert('Multiple active elements in the menu! There should be only one.');
@@ -53,13 +48,9 @@
     $parents = $();
     $breadcrumb = $();
     button = '<span class="' + settings.buttonClass + '"><i></i></span>';
-    addBasicClasses = function() {
-      return $navUl.addClass('with-js');
-    };
-    addBasicClasses();
-    this.test = function() {
-      return console.log(this);
-    };
+    if ($nav.children('.' + settings.navTitleClass).length === 0) {
+      $nav.prepend('<div class="' + settings.navTitleClass + '">Menu</div>');
+    }
     addBreadcrumbClasses = function() {
       var $breadcrumbCount, $currentParents;
       $currentParents = $current.parentsUntil($navUl, 'li');
@@ -79,10 +70,19 @@
       });
     };
     addParentClasses();
-    $root = $navUl.children('.' + settings.parentClass + '.' + settings.breadcrumbClass).addClass(settings.rootClass);
+    addBasicClasses = function() {
+      $nav.addClass('with-js');
+      $current = $('li.' + settings.currentClass, $navUl);
+      if ($current.length === 0) {
+        return $root = $nav.addClass(settings.rootClass);
+      } else {
+        return $root = $navUl.children('.' + settings.parentClass + '.' + settings.breadcrumbClass).addClass(settings.rootClass);
+      }
+    };
+    addBasicClasses();
     addButtons = function() {
       var $buttons;
-      if ($navUl.children('li').length > 1) {
+      if ($navUl.children('li').length > 1 && $current.length === 0) {
         $nav.addClass(settings.multipleRootsClass);
         $navUl.before($(button).addClass(settings.buttonRootsMenuClass));
       }
@@ -211,6 +211,7 @@
     removeBreadcrumbClasses = function() {
       var re;
       $current.removeClass(settings.currentClass);
+      $root.removeClass(settings.rootClass);
       $nav.find('.' + settings.openClass).removeClass(settings.openClass);
       re = new RegExp(settings.breadcrumbClass + '[^ ]*', 'g');
       return $navUl.find('.' + settings.breadcrumbClass).each(function() {
@@ -223,6 +224,13 @@
       $newActive.parent('li').addClass(settings.currentClass);
       $current = $('li.' + settings.currentClass, $navUl);
       addBreadcrumbClasses();
+      addBasicClasses();
+      if ($navUl.children('li').length > 1 && $current.length === 1) {
+        $nav.addClass(settings.multipleRootsClass);
+        if ($('.' + settings.buttonRootsMenuClass).length === 0) {
+          $navUl.before($(button).addClass(settings.buttonRootsMenuClass));
+        }
+      }
       return addListeners();
     };
   };

@@ -1,7 +1,11 @@
 /* crumbnav Theme Styles */
 @import "mixins";
 
-.#{$navUl} {
+.#{$navClass} {
+
+  > ul {
+    margin: 0;
+  }
 
   li.#{$currentClass} > a {
     //background-color: $currentColor;
@@ -30,6 +34,11 @@
   ul ul ul ul > li > a {
     background: $fifthLevelColor;
 	}
+}
+
+.#{$navTitleClass} {
+  background-color: $firstLevelColor;
+  color: $navTextColor;
 }
 
 .#{$breadcrumbClass} {

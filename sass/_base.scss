@@ -35,6 +35,7 @@
     position: relative;
     display: block;
     height: 100%;
+    white-space: nowrap;
   }
 
   // Show contextual menu button (+)
@@ -146,7 +147,7 @@
   }
 }
 
-.#{$navClass}.#{$openClass} > ul > li {
+.#{$navClass}.#{$multipleRootsClass}.#{$openClass} > ul > li {
   display: block;
 }
 

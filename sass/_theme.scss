@@ -115,7 +115,7 @@
   }
   //Remove right side triangles from open menu
   .#{$breadcrumbClass} > a:after{
-    border-color: transparent;
+    border: none;
   }
   //Open menu style breadcrumb trail indicators
   .#{$breadcrumbClass}:not(.#{$breadcrumbClass}-out-0) {

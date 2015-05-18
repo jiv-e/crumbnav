@@ -104,37 +104,25 @@ $.fn.crumbnav = (options) ->
     nav_percent = nav_width+"%"
 
   # Get the breakpoint set with data-breakpoint
-  if $navUl.data('breakpoint') then breakpoint = $navUl.data('breakpoint')
+  if $nav.data('breakpoint') then breakpoint = $nav.data('breakpoint')
 
   # Functions for hover support
   showMenu = ->
-    if $navUl.hasClass(settings.largeClass) is true and settings.hover is true
+    if $nav.hasClass(settings.largeClass) is true and settings.hover is true
       $(@).find('>ul')
        .addClass(settings.openClass)
   resetMenu = ->
-    if $navUl.hasClass(settings.largeClass) is true and $(@).find('>ul').hasClass(settings.openClass) is true and settings.hover is true
+    if $nav.hasClass(settings.largeClass) is true and $(@).find('>ul').hasClass(settings.openClass) is true and settings.hover is true
       $(@).find('>ul')
         .removeClass(settings.openClass)
 
   # Changing classes depending on viewport width and adding in hover support
   resizer = ->
     if $(window).width() <= breakpoint
-      $navUl.removeClass(settings.largeClass).addClass(settings.smallClass)
-      if settings.calcItemWidths is true
-        $top_nav_items.css('width','100%')
-      $($navUl, $buttons).removeClass(settings.openClass)
-      # Toggle nav menu closed for one pager after anchor clicked
-      $('.one-page li a').on( 'click', ->
-        $navUl.removeClass(settings.openClass)
-      )
+      $nav.removeClass(settings.largeClass).addClass(settings.smallClass)
     else if $(window).width() > breakpoint
-      $navUl.removeClass(settings.smallClass).addClass(settings.largeClass)
-      if settings.calcItemWidths is true
-        $top_nav_items.css('width',nav_percent)
-      # Make sure navigation is closed when going back to large screens
-      $navUl.removeClass(settings.openClass).find('.'+settings.parentClass).on()
-      $('.'+settings.parentClass).find('ul').removeClass(settings.openClass)
-      resetMenu()
+      $nav.removeClass(settings.smallClass).addClass(settings.largeClass)
+      #resetMenu()
       if settings.hoverIntent is true
         # Requires hoverIntent jquery plugin http://cherne.net/brian/resources/jquery.hoverIntent.html
         $('.'+settings.parentClass).hoverIntent(

@@ -96,37 +96,24 @@
       nav_width = 100 / count;
       nav_percent = nav_width + "%";
     }
-    if ($navUl.data('breakpoint')) {
-      breakpoint = $navUl.data('breakpoint');
+    if ($nav.data('breakpoint')) {
+      breakpoint = $nav.data('breakpoint');
     }
     showMenu = function() {
-      if ($navUl.hasClass(settings.largeClass) === true && settings.hover === true) {
+      if ($nav.hasClass(settings.largeClass) === true && settings.hover === true) {
         return $(this).find('>ul').addClass(settings.openClass);
       }
     };
     resetMenu = function() {
-      if ($navUl.hasClass(settings.largeClass) === true && $(this).find('>ul').hasClass(settings.openClass) === true && settings.hover === true) {
+      if ($nav.hasClass(settings.largeClass) === true && $(this).find('>ul').hasClass(settings.openClass) === true && settings.hover === true) {
         return $(this).find('>ul').removeClass(settings.openClass);
       }
     };
     resizer = function() {
       if ($(window).width() <= breakpoint) {
-        $navUl.removeClass(settings.largeClass).addClass(settings.smallClass);
-        if (settings.calcItemWidths === true) {
-          $top_nav_items.css('width', '100%');
-        }
-        $($navUl, $buttons).removeClass(settings.openClass);
-        return $('.one-page li a').on('click', function() {
-          return $navUl.removeClass(settings.openClass);
-        });
+        return $nav.removeClass(settings.largeClass).addClass(settings.smallClass);
       } else if ($(window).width() > breakpoint) {
-        $navUl.removeClass(settings.smallClass).addClass(settings.largeClass);
-        if (settings.calcItemWidths === true) {
-          $top_nav_items.css('width', nav_percent);
-        }
-        $navUl.removeClass(settings.openClass).find('.' + settings.parentClass).on();
-        $('.' + settings.parentClass).find('ul').removeClass(settings.openClass);
-        resetMenu();
+        $nav.removeClass(settings.smallClass).addClass(settings.largeClass);
         if (settings.hoverIntent === true) {
           return $('.' + settings.parentClass).hoverIntent({
             over: showMenu,

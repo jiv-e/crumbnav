@@ -22,8 +22,8 @@
       'navClass': 'crumbnav',
       'navTitleClass': 'crumbnav__title',
       'parentClass': 'crumbnav__parent',
-      'openClass': 'sn-open',
-      'rootsOpenClass': 'sn-open-roots',
+      'openClass': 'cn-open',
+      'rootsOpenClass': 'cn-open-roots',
       'rootClass': 'crumbnav__root',
       'currentClass': 'active',
       'breadcrumbClass': 'crumbnav-crumb',
@@ -31,8 +31,7 @@
       'buttonMenuClass': 'crumbnav__button--menu',
       'buttonRootsMenuClass': 'crumbnav__button--root-menu',
       'multipleRootsClass': 'crumbnav--multiple-roots',
-      'largeClass': 'lg-screen',
-      'smallClass': 'sm-screen',
+      'largeClass': 'crumbnav--large',
       'hoverIntent': false,
       'hoverIntentTimeout': 150,
       'calcItemWidths': false,
@@ -111,9 +110,9 @@
     };
     resizer = function() {
       if ($(window).width() <= breakpoint) {
-        return $nav.removeClass(settings.largeClass).addClass(settings.smallClass);
+        return $nav.removeClass(settings.largeClass);
       } else if ($(window).width() > breakpoint) {
-        $nav.removeClass(settings.smallClass).addClass(settings.largeClass);
+        $nav.addClass(settings.largeClass);
         if (settings.hoverIntent === true) {
           return $('.' + settings.parentClass).hoverIntent({
             over: showMenu,

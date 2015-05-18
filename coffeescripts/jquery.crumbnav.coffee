@@ -22,8 +22,8 @@ $.fn.crumbnav = (options) ->
     'navClass': 'crumbnav',
     'navTitleClass': 'crumbnav__title',
     'parentClass': 'crumbnav__parent',
-    'openClass': 'sn-open',
-    'rootsOpenClass': 'sn-open-roots',
+    'openClass': 'cn-open',
+    'rootsOpenClass': 'cn-open-roots',
     'rootClass': 'crumbnav__root',
     'currentClass': 'active',
     'breadcrumbClass': 'crumbnav-crumb',
@@ -31,8 +31,7 @@ $.fn.crumbnav = (options) ->
     'buttonMenuClass': 'crumbnav__button--menu',
     'buttonRootsMenuClass': 'crumbnav__button--root-menu',
     'multipleRootsClass': 'crumbnav--multiple-roots',
-    'largeClass': 'lg-screen',
-    'smallClass': 'sm-screen',
+    'largeClass': 'crumbnav--large',
     'hoverIntent': false,
     'hoverIntentTimeout': 150,
     'calcItemWidths': false,
@@ -119,9 +118,9 @@ $.fn.crumbnav = (options) ->
   # Changing classes depending on viewport width and adding in hover support
   resizer = ->
     if $(window).width() <= breakpoint
-      $nav.removeClass(settings.largeClass).addClass(settings.smallClass)
+      $nav.removeClass(settings.largeClass)
     else if $(window).width() > breakpoint
-      $nav.removeClass(settings.smallClass).addClass(settings.largeClass)
+      $nav.addClass(settings.largeClass)
       #resetMenu()
       if settings.hoverIntent is true
         # Requires hoverIntent jquery plugin http://cherne.net/brian/resources/jquery.hoverIntent.html

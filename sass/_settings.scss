@@ -3,7 +3,7 @@ $opacityClass: crumbnav--opacity;
 $navClass: crumbnav;
 $navTitleClass: crumbnav__title;
 $parentClass: crumbnav__parent;
-$openClass: sn-open;
+$openClass: cn-open;
 $currentClass: active;
 $rootClass: crumbnav__root;
 $breadcrumbClass: crumbnav-crumb;
@@ -11,7 +11,8 @@ $buttonClass: crumbnav__button;
 $buttonMenuClass: crumbnav__button--menu;
 $buttonRootsMenuClass: crumbnav__button--root-menu;
 $multipleRootsClass: crumbnav--multiple-roots;
-$rootsOpenClass: sn-open-roots;
+$rootsOpenClass: cn-open-roots;
+$largeClass: crumbnav--large;
 
 //COLORS
 $navTextColor: #eeeeee;

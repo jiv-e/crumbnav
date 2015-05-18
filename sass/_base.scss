@@ -28,9 +28,6 @@
     min-height: $elementHeight;
     line-height: $elementHeight;
   }
-  li.#{$currentClass} a {
-    clear: both;
-  }
   li > a {
     position: relative;
     display: block;
@@ -43,7 +40,7 @@
   .#{$breadcrumbClass}-in-1 > .#{$buttonClass} {
     display: block;
   }
-  // Hide contextual menu button, if the menu is a second level menu
+  // Hide contextual menu button (+), if the menu is a second level menu
   .#{$breadcrumbClass}-in-1.#{$breadcrumbClass}-out-0 > .#{$buttonClass} {
     display: none;
   }
@@ -52,6 +49,28 @@
   }
   li.#{$rootsOpenClass} .#{$breadcrumbClass} {
     display: none;
+  }
+}
+
+// Current item
+.#{$currentClass} a {
+  clear: both;
+  // If large:
+  .#{$largeClass} & {
+    clear: none;
+  }
+}
+
+// Current item siblings
+.#{$breadcrumbClass}-in-1 > ul > li {
+
+  // If large:
+  .#{$largeClass} & {
+    display: block;
+    float:left;
+    > .#{$buttonClass} {
+      display: none;
+    }
   }
 }
 
@@ -133,6 +152,9 @@
   &.#{$currentClass} > a {
     float: none;
     overflow: hidden;
+    .#{$largeClass} & {
+      float: left;
+    }
   }
 }
 

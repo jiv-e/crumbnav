@@ -1,13 +1,13 @@
 /* crumbnav Base Styles */
 .crumbnav {
   position: relative; }
-  .crumbnav.sn-open-roots .active {
+  .crumbnav.cn-open-roots .active {
     display: none; }
-  .crumbnav.sn-open-roots .active.crumbnav-crumb-out-0 {
+  .crumbnav.cn-open-roots .active.crumbnav-crumb-out-0 {
     display: block; }
-  .crumbnav .sn-open-roots {
+  .crumbnav .cn-open-roots {
     display: block; }
-    .crumbnav .sn-open-roots.crumbnav__parent.crumbnav-crumb > a {
+    .crumbnav .cn-open-roots.crumbnav__parent.crumbnav-crumb > a {
       float: none; }
   .crumbnav ul {
     position: relative;
@@ -17,12 +17,11 @@
     display: none;
     min-height: 50px;
     line-height: 50px; }
-  .crumbnav li.active a {
-    clear: both; }
   .crumbnav li > a {
     position: relative;
     display: block;
-    height: 100%; }
+    height: 100%;
+    white-space: nowrap; }
   .crumbnav > ul > .crumbnav__button,
   .crumbnav .crumbnav-crumb-in-1 > .crumbnav__button {
     display: block; }
@@ -30,7 +29,18 @@
     display: none; }
   .crumbnav li.crumbnav-crumb {
     display: block; }
-  .crumbnav li.sn-open-roots .crumbnav-crumb {
+  .crumbnav li.cn-open-roots .crumbnav-crumb {
+    display: none; }
+
+.active a {
+  clear: both; }
+  .crumbnav--large .active a {
+    clear: none; }
+
+.crumbnav--large .crumbnav-crumb-in-1 > ul > li {
+  display: block;
+  float: left; }
+  .crumbnav--large .crumbnav-crumb-in-1 > ul > li > .crumbnav__button {
     display: none; }
 
 .crumbnav__title {
@@ -62,28 +72,28 @@
 .crumbnav-crumb-out-4 > a {
   z-index: 1; }
 
-.crumbnav.sn-open .crumbnav__button,
+.crumbnav.cn-open .crumbnav__button,
 .crumbnav-crumb-in-1 .crumbnav__button,
-.crumbnav__button.sn-open {
+.crumbnav__button.cn-open {
   display: block; }
 
-.crumbnav.sn-open .crumbnav__button {
+.crumbnav.cn-open .crumbnav__button {
   display: block; }
-.crumbnav.sn-open .crumbnav-crumb > a {
+.crumbnav.cn-open .crumbnav-crumb > a {
   float: none; }
-.crumbnav.sn-open .crumbnav-crumb-out-1 > .crumbnav__button {
+.crumbnav.cn-open .crumbnav-crumb-out-1 > .crumbnav__button {
   top: 0; }
-.crumbnav.sn-open li.crumbnav-crumb, .crumbnav.sn-open li.active {
+.crumbnav.cn-open li.crumbnav-crumb, .crumbnav.cn-open li.active {
   display: none; }
-.crumbnav.sn-open li.crumbnav-crumb.sn-open,
-.crumbnav.sn-open li.crumbnav-crumb.sn-open > ul > li,
-.crumbnav.sn-open li.active.sn-open,
-.crumbnav.sn-open .crumbnav-crumb-in-1.crumbnav-crumb-out-0 .crumbnav__button {
+.crumbnav.cn-open li.crumbnav-crumb.cn-open,
+.crumbnav.cn-open li.crumbnav-crumb.cn-open > ul > li,
+.crumbnav.cn-open li.active.cn-open,
+.crumbnav.cn-open .crumbnav-crumb-in-1.crumbnav-crumb-out-0 .crumbnav__button {
   display: block; }
-.crumbnav.sn-open .crumbnav-crumb-in-1 > .crumbnav__button {
+.crumbnav.cn-open .crumbnav-crumb-in-1 > .crumbnav__button {
   top: 0; }
 
-.crumbnav-crumbsn-open > ul > li {
+.crumbnav-crumbcn-open > ul > li {
   display: block; }
 
 .crumbnav__parent.crumbnav-crumb > a {
@@ -91,14 +101,16 @@
 .crumbnav__parent.crumbnav-crumb-in-1 > a, .crumbnav__parent.crumbnav-crumb.active > a {
   float: none;
   overflow: hidden; }
+  .crumbnav--large .crumbnav__parent.crumbnav-crumb-in-1 > a, .crumbnav--large .crumbnav__parent.crumbnav-crumb.active > a {
+    float: left; }
 
-.crumbnav-crumb.sn-open > a {
+.crumbnav-crumb.cn-open > a {
   float: none; }
 
-.crumbnav__parent.sn-open > ul > li {
+.crumbnav__parent.cn-open > ul > li {
   display: block; }
 
-.crumbnav.sn-open > ul > li {
+.crumbnav.crumbnav--multiple-roots.cn-open > ul > li {
   display: block; }
 
 .crumbnav__button {
@@ -137,15 +149,15 @@
   padding: 0 1em;
   color: #eeeeee;
   border-bottom: 1px solid rgba(0, 0, 0, 0.15); }
-.crumbnav ul > li > a {
+.crumbnav ul a {
   background: #3a3a3a; }
-.crumbnav ul ul li > a {
+.crumbnav ul ul a {
   background: #585858; }
-.crumbnav ul ul ul li > a {
+.crumbnav ul ul ul a {
   background: #6d6d6d; }
-.crumbnav ul ul ul ul > li > a {
+.crumbnav ul ul ul ul a {
   background: #969696; }
-.crumbnav ul ul ul ul ul > li > a {
+.crumbnav ul ul ul ul ul a {
   background: #acacac; }
 
 .crumbnav__title {
@@ -174,7 +186,7 @@
 .crumbnav-crumb.crumbnav-crumb-out-3 > a:after {
   border-left-color: #6d6d6d; }
 .crumbnav-crumb.active > a:after {
-  border-left-color: transparent; }
+  border: none; }
 
 .crumbnav-crumb-in-0 > a {
   padding-left: 30px; }
@@ -182,31 +194,31 @@
 .crumbnav--multiple-roots .crumbnav-crumb-in-0 > a {
   padding-left: 50px; }
 
-.crumbnav .sn-open-roots > a {
+.crumbnav .cn-open-roots > a {
   padding-left: 50px; }
-.crumbnav .sn-open-roots.crumbnav-crumb > a {
+.crumbnav .cn-open-roots.crumbnav-crumb > a {
   color: #62c657; }
 
-.crumbnav-crumb.sn-open ul li > a {
+.crumbnav-crumb.cn-open ul li > a {
   padding-left: 30px; }
-.crumbnav-crumb.sn-open ul ul li > a {
+.crumbnav-crumb.cn-open ul ul li > a {
   padding-left: 45px; }
-.crumbnav-crumb.sn-open ul ul ul > li > a {
+.crumbnav-crumb.cn-open ul ul ul > li > a {
   padding-left: 60px; }
-.crumbnav-crumb.sn-open ul ul ul ul > li > a {
+.crumbnav-crumb.cn-open ul ul ul ul > li > a {
   padding-left: 75px; }
 
-.crumbnav.sn-open ul li > a {
+.crumbnav.cn-open ul li > a {
   padding-left: 30px; }
-.crumbnav.sn-open ul ul li > a {
+.crumbnav.cn-open ul ul li > a {
   padding-left: 45px; }
-.crumbnav.sn-open ul ul ul > li > a {
+.crumbnav.cn-open ul ul ul > li > a {
   padding-left: 60px; }
-.crumbnav.sn-open ul ul ul ul > li > a {
+.crumbnav.cn-open ul ul ul ul > li > a {
   padding-left: 75px; }
-.crumbnav.sn-open .crumbnav-crumb > a:after {
+.crumbnav.cn-open .crumbnav-crumb > a:after {
   border-color: transparent; }
-.crumbnav.sn-open .crumbnav-crumb:not(.crumbnav-crumb-out-0):after {
+.crumbnav.cn-open .crumbnav-crumb:not(.crumbnav-crumb-out-0):after {
   display: block;
   content: '';
   width: 0;
@@ -220,29 +232,29 @@
   margin-left: -10px;
   z-index: 100; }
 
-.crumbnav.crumbnav--multiple-roots.sn-open-roots .crumbnav-crumb > a:after {
+.crumbnav.crumbnav--multiple-roots.cn-open-roots .crumbnav-crumb > a:after {
   border-color: transparent; }
 
-.crumbnav.crumbnav--multiple-roots.sn-open ul li > a {
+.crumbnav.crumbnav--multiple-roots.cn-open ul li > a {
   padding-left: 50px; }
-.crumbnav.crumbnav--multiple-roots.sn-open ul ul li > a {
+.crumbnav.crumbnav--multiple-roots.cn-open ul ul li > a {
   padding-left: 65px; }
-.crumbnav.crumbnav--multiple-roots.sn-open ul ul ul > li > a {
+.crumbnav.crumbnav--multiple-roots.cn-open ul ul ul > li > a {
   padding-left: 80px; }
-.crumbnav.crumbnav--multiple-roots.sn-open ul ul ul ul > li > a {
+.crumbnav.crumbnav--multiple-roots.cn-open ul ul ul ul > li > a {
   padding-left: 95px; }
-.crumbnav.crumbnav--multiple-roots.sn-open ul ul ul ul ul > li > a {
+.crumbnav.crumbnav--multiple-roots.cn-open ul ul ul ul ul > li > a {
   padding-left: 110px; }
 
-.crumbnav.crumbnav--multiple-roots .crumbnav-crumb.sn-open ul li > a {
+.crumbnav.crumbnav--multiple-roots .crumbnav-crumb.cn-open ul li > a {
   padding-left: 65px; }
-.crumbnav.crumbnav--multiple-roots .crumbnav-crumb.sn-open ul ul li > a {
+.crumbnav.crumbnav--multiple-roots .crumbnav-crumb.cn-open ul ul li > a {
   padding-left: 80px; }
-.crumbnav.crumbnav--multiple-roots .crumbnav-crumb.sn-open ul ul ul > li > a {
+.crumbnav.crumbnav--multiple-roots .crumbnav-crumb.cn-open ul ul ul > li > a {
   padding-left: 95px; }
-.crumbnav.crumbnav--multiple-roots .crumbnav-crumb.sn-open ul ul ul ul > li > a {
+.crumbnav.crumbnav--multiple-roots .crumbnav-crumb.cn-open ul ul ul ul > li > a {
   padding-left: 110px; }
-.crumbnav.crumbnav--multiple-roots .crumbnav-crumb.sn-open ul ul ul ul ul > li > a {
+.crumbnav.crumbnav--multiple-roots .crumbnav-crumb.cn-open ul ul ul ul ul > li > a {
   padding-left: 125px; }
 
 .crumbnav__button {
@@ -267,7 +279,7 @@
   margin-top: -5px;
   margin-left: -10px; }
 
-.crumbnav__button--menu.sn-open > i {
+.crumbnav__button--menu.cn-open > i {
   display: block;
   content: '';
   width: 0;
@@ -295,7 +307,7 @@
   margin-top: -10px;
   margin-left: -15px; }
 
-.crumbnav__button--root-menu.sn-open-roots > i {
+.crumbnav__button--root-menu.cn-open-roots > i {
   display: block;
   content: '';
   width: 0;
@@ -318,7 +330,7 @@
     color: #666;
     background: url("../img/plus.png") center center no-repeat; }
 
-.crumbnav__parent > .crumbnav__button.sn-open > i {
+.crumbnav__parent > .crumbnav__button.cn-open > i {
   background: url("../img/minus.png") center center no-repeat; }
 
 /*# sourceMappingURL=crumbnav.css.map */

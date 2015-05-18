@@ -18,22 +18,20 @@
 		color: $navTextColor;
 		border-bottom: 1px solid rgba(0,0,0,.15);
 	}
-  ul {
-    > li > a {
-      background: $firstLevelColor;
-    }
-    ul li > a {
-      background: $secondLevelColor;
-    }
-    ul ul li > a {
-      background: $thirdLevelColor;
-    }
-    ul ul ul > li > a {
-      background: $fourthLevelColor;
-    }
-    ul ul ul ul > li > a {
-      background: $fifthLevelColor;
-    }
+  ul a {
+    background: $firstLevelColor;
+  }
+  ul ul a {
+    background: $secondLevelColor;
+  }
+  ul ul ul a {
+    background: $thirdLevelColor;
+  }
+  ul ul ul ul a {
+    background: $fourthLevelColor;
+  }
+  ul ul ul ul ul a {
+    background: $fifthLevelColor;
   }
 }
 
@@ -61,7 +59,7 @@
     border-left-color: $thirdLevelColor;
   }
   &.#{$currentClass} > a:after {
-    border-left-color: transparent;
+    border: none;
   }
 }
 

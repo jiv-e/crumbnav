@@ -1,10 +1,16 @@
 /* crumbnav Base Styles */
 
+.no-js {
+  //TODO Make no-js mode better.
+}
+
 .#{$navClass} {
   position: relative;
   &.#{$rootsOpenClass} {
     .#{$currentClass} {
-      display: none;
+      .js & {
+        display: none;
+      }
     }
     .#{$currentClass}.#{$breadcrumbClass}-out-0 {
       display: block;
@@ -20,11 +26,17 @@
 
   ul {
     position: relative;
-    padding: 0;
+    list-style: none;
+    padding: 0 0 0 2em;
+    .js & {
+      padding: 0;
+    }
   }
   li {
     position: relative;
-    display: none;
+    .js & {
+      display: none;
+    }
     min-height: $elementHeight;
     line-height: $elementHeight;
   }
@@ -44,11 +56,25 @@
   .#{$breadcrumbClass}-in-1.#{$breadcrumbClass}-out-0 > .#{$buttonClass} {
     display: none;
   }
-  li.#{$breadcrumbClass} {
+  &.#{$closedClass} li.#{$breadcrumbClass} {
     display: block;
   }
-  li.#{$rootsOpenClass} .#{$breadcrumbClass} {
-    display: none;
+
+  //flexMenu support
+  .flexMenu-viewMore {
+    position: absolute;
+    right: 0;
+  }
+  .flexMenu-popup {
+    position: absolute;
+    top: $elementHeight;
+    right: 0;
+    > li {
+      display: block;
+    }
+    .#{$buttonClass} {
+      display: none;
+    }
   }
 }
 
@@ -61,17 +87,33 @@
   }
 }
 
+.#{$breadcrumbClass}-in-1 {
+  //Prevent horizontal contextual links list from
+  //overlapping with the main menu
+  &.#{$closedClass} {
+    padding-right: $elementHeight;
+    .#{$buttonClass} {
+      display: none;
+    }
+  }
+  .js &.#{$closedClass} > ul {
+    //Padding preventing overlap with .more-menu-button
+    padding-right: $elementHeight;
+  }
+}
+
 // Current item siblings
 .#{$breadcrumbClass}-in-1 > ul > li {
 
-  // If large:
-  .#{$largeClass} & {
+  // If large and closed:
+  .#{$largeClass}.#{$closedClass} & {
     display: block;
     float:left;
     > .#{$buttonClass} {
       display: none;
     }
   }
+
 }
 
 .#{$navTitleClass} {
@@ -154,6 +196,10 @@
     overflow: hidden;
     .#{$largeClass} & {
       float: left;
+      overflow: visible;
+    }
+    .#{$largeClass}.#{$openClass} & {
+      float: none;
     }
   }
 }
@@ -173,7 +219,7 @@
   display: block;
 }
 
-.#{$buttonClass} {
+%button {
   position: absolute;
   z-index: 100;
   top: 0;
@@ -188,11 +234,13 @@
   > i {
     position: relative;
     height: $elementHeight;
-    width: $elementHeight;
     display: block;
   }
 }
 
+.#{$buttonClass} {
+  @extend %button;
+}
 
 .#{$buttonRootsMenuClass},
 .#{$buttonMenuClass} {
@@ -203,4 +251,11 @@
 .#{$buttonRootsMenuClass} {
   left: 0;
   right: inherit;
+}
+
+//Refactor
+//.#{$buttonClass}--more-menu {
+.more-menu-button {
+  @extend %button;
+  display: block;
 }

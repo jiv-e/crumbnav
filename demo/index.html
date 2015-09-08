@@ -1,19 +1,19 @@
 <!doctype html>
-<html class="" lang="">
+<html class="no-js" lang="">
 <head>
   <meta charset="utf-8">
   <title>Crumbnav demo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
-  <script type='text/javascript' src='js/fastclick.min.js'></script>
-  <script type="text/javascript" src="../js/jquery.crumbnav.js"></script>
-  <script type="text/javascript" src="../js/jquery.crumbnav-demo.js"></script>
-  <link href="../css/crumbnav.css" rel="stylesheet" type="text/css" />
+  <script type='text/javascript' src='demo/js/fastclick.min.js'></script>
+  <script type="text/javascript" src="../build/jquery.crumbnav.js"></script>
+  <script type="text/javascript" src="../build/jquery.crumbnav-demo.js"></script>
+  <link href="../build/crumbnav.css" rel="stylesheet" type="text/css" />
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
 </head>
 <body>
-<div class="crumbnav">
+<div class="crumbnav" data-breakpoint="400">
   <ul>
     <li>
       <a href="#">Fashion</a>
@@ -45,7 +45,7 @@
                   </ul>
                 </li>
                 <li><a href="#">Leather</a></li>
-                <li>
+                <li class="active">
                   <a href="#">Rubber</a>
                   <ul>
                     <li><a href="#">Red</a></li>
@@ -146,7 +146,7 @@
   </ul>
 </div>
 <script>
-  $(".crumbnav").crumbnavDemo();
+  $(".crumbnav").crumbnavDemo({linkText: '+'});
 </script>
 </body>
 </html>

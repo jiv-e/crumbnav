@@ -4,6 +4,7 @@ $navClass: crumbnav;
 $navTitleClass: crumbnav__title;
 $parentClass: crumbnav__parent;
 $openClass: cn-open;
+$closedClass: cn-close;
 $currentClass: active;
 $rootClass: crumbnav__root;
 $breadcrumbClass: crumbnav-crumb;
@@ -12,6 +13,7 @@ $buttonMenuClass: crumbnav__button--menu;
 $buttonRootsMenuClass: crumbnav__button--root-menu;
 $multipleRootsClass: crumbnav--multiple-roots;
 $rootsOpenClass: cn-open-roots;
+$rootsClosedClass: cn-close-roots;
 $largeClass: crumbnav--large;
 
 //COLORS
@@ -28,4 +30,5 @@ $breadcrumbArrowColor: $arrowbuttonColor;
 
 //DIMENSIONS
 $elementHeight: 50px;
+$borderWidth: 1px;
 $indent: 15px;

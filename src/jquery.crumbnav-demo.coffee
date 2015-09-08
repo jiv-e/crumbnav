@@ -3,8 +3,8 @@ $ = jQuery
 $.fn.crumbnavDemo = (options) ->
 
   $nav = $(@)
-
-  $nav.crumbnav();
+  document.nav = $nav
+  $nav.crumbnav(options);
 
   $nav.clickHandler = (e) ->
     e.preventDefault()

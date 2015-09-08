@@ -6,3 +6,6 @@
 
 # Ignore OSX generated files
 .DS_Store
+
+build/
+node_modules/

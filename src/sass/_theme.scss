@@ -1,36 +1,43 @@
 /* crumbnav Theme Styles */
 @import "mixins";
 
-.#{$navClass} {
+// Basic link styles
+.#{$navClass} li > a {
+  padding: 0 1em;
+  color: $navTextColor;
+  border-bottom: $borderWidth solid rgba(0, 0, 0, .15);
+}
+.#{$navClass}.#{$largeClass} li > a {
+  border: none;
+}
 
+.#{$navClass} {
   > ul {
     margin: 0;
   }
 
   li.#{$currentClass} > a {
-    //background-color: $currentColor;
     color: $currentNavTextColor;
     font-weight: bold;
   }
-
-	li > a {
-		padding: 0 1em;
-		color: $navTextColor;
-		border-bottom: 1px solid rgba(0,0,0,.15);
-	}
-  ul a {
+  ul a,
+  .#{$rootClass}.#{$breadcrumbClass}-in-0 {
     background: $firstLevelColor;
   }
-  ul ul a {
+  ul ul a,
+  .#{$rootClass}.#{$breadcrumbClass}-in-1 {
     background: $secondLevelColor;
   }
-  ul ul ul a {
+  ul ul ul a,
+  .#{$rootClass}.#{$breadcrumbClass}-in-2 {
     background: $thirdLevelColor;
   }
-  ul ul ul ul a {
+  ul ul ul ul a,
+  .#{$rootClass}.#{$breadcrumbClass}-in-3 {
     background: $fourthLevelColor;
   }
-  ul ul ul ul ul a {
+  ul ul ul ul ul a,
+  .#{$rootClass}.#{$breadcrumbClass}-in-4 {
     background: $fifthLevelColor;
   }
 }
@@ -56,7 +63,7 @@
     border-left-color: $thirdLevelColor;
   }
   &.#{$breadcrumbClass}-out-3 > a:after {
-    border-left-color: $thirdLevelColor;
+    border-left-color: $fourthLevelColor;
   }
   &.#{$currentClass} > a:after {
     border: none;
@@ -67,7 +74,7 @@
 .#{$breadcrumbClass}-in-0 > a {
   padding-left: $indent*2;
 }
-.#{$multipleRootsClass} .#{$breadcrumbClass}-in-0 > a {
+.#{$openClass}.#{$multipleRootsClass} .#{$breadcrumbClass}-in-0 > a {
   padding-left: $elementHeight;
 }
 
@@ -136,7 +143,7 @@
   //TODO Refactor: dublicate code
   //Remove right side triangles from open menu
   .#{$breadcrumbClass} > a:after{
-    border-color: transparent;
+    border: none;
   }
 }
 
@@ -206,7 +213,8 @@
   @include triangle-center(right, $arrowbuttonColor, 10px);
 }
 
-.#{$parentClass} > .#{$buttonClass} {
+.#{$parentClass} > .#{$buttonClass},
+.more-menu-button {
   background: #acaca1;
   background: rgba(0,0,0,.075);
   text-align: center;

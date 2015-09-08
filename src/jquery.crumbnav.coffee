@@ -10,20 +10,27 @@
 
 # TODO Hide contextual menu button (+) when there's only on child in the submenu
 
+require('./sass/crumbnav.scss')
+
+
 # Use local alias for $.noConflict() compatibility
 $ = jQuery
+
+$('html').removeClass('no-js').addClass('js')
 
 $ ->
   #attachFastClick = Origami.fastclick;
   #attachFastClick(document.body);
 
 $.fn.crumbnav = (options) ->
-  settings = $.extend
+  settings = $.extend({
     'navClass': 'crumbnav',
     'navTitleClass': 'crumbnav__title',
     'parentClass': 'crumbnav__parent',
     'openClass': 'cn-open',
+    'closedClass': 'cn-close',
     'rootsOpenClass': 'cn-open-roots',
+    'rootsClosedClass': 'cn-close-roots',
     'rootClass': 'crumbnav__root',
     'currentClass': 'active',
     'breadcrumbClass': 'crumbnav-crumb',
@@ -35,9 +42,20 @@ $.fn.crumbnav = (options) ->
     'hoverIntent': false,
     'hoverIntentTimeout': 150,
     'calcItemWidths': false,
-    'hover': true
+    'hover': false,
+    #FlexMenu
+    'threshold' : 2,
+    'cutoff' : 2,
+    'linkText' : 'More',
+    'linkTitle' : 'View More',
+    'linkTextAll' : 'Menu',
+    'linkTitleAll' : 'Open/Close Menu',
+    'showOnHover' : true,
+    'undo' : false},
     options
+  )
 
+  @.options = settings
   $nav = $(@)
   # TODO Add support for multiple menus? At the moment breaks javascript execution!
   $navUl = if $nav.children('ul').length == 1 then $nav.children('ul') else alert("Unsupported number of ul's inside the navigation!");
@@ -63,8 +81,6 @@ $.fn.crumbnav = (options) ->
       .each (index) ->
         $(@).addClass(settings.breadcrumbClass+'-out-'+index+' '+settings.breadcrumbClass+'-in-'+($breadcrumbCount - index - 1))
 
-  addBreadcrumbClasses()
-
   # Set parent classes in the markup
   addParentClasses = ->
     $navUl.find("li").each ->
@@ -72,86 +88,45 @@ $.fn.crumbnav = (options) ->
         $(@).addClass(settings.parentClass)
         $parents = $parents.add($(@))
 
-  addParentClasses()
 
   # Set some classes in the markup
   addBasicClasses = ->
-    $nav.addClass('with-js')
     $current = $('li.'+settings.currentClass, $navUl)
     if $current.length == 0
     then $root = $nav.addClass(settings.rootClass)
     else $root = $navUl.children('.'+settings.parentClass+'.'+settings.breadcrumbClass).addClass(settings.rootClass)
 
-  addBasicClasses()
-
-
   # Add in touch buttons
   addButtons = ->
     if $navUl.children('li').length > 1 && $current.length == 0
       $nav.addClass(settings.multipleRootsClass)
-      $navUl.before($(button).addClass(settings.buttonRootsMenuClass))
+      #$navUl.before($(button).addClass(settings.buttonRootsMenuClass))
     $navUl.after($(button).addClass(settings.buttonMenuClass))
     $buttons = $parents.not($root).append(button)
 
-  addButtons()
-
-  # Find the number of top level nav items and set widths
-  if settings.calcItemWidths is true
-    $top_nav_items = $navUl.find('>li')
-    count = $top_nav_items.length
-    nav_width = 100 / count
-    nav_percent = nav_width+"%"
-
-  # Get the breakpoint set with data-breakpoint
-  if $nav.data('breakpoint') then breakpoint = $nav.data('breakpoint')
-
-  # Functions for hover support
-  showMenu = ->
-    if $nav.hasClass(settings.largeClass) is true and settings.hover is true
-      $(@).find('>ul')
-       .addClass(settings.openClass)
-  resetMenu = ->
-    if $nav.hasClass(settings.largeClass) is true and $(@).find('>ul').hasClass(settings.openClass) is true and settings.hover is true
-      $(@).find('>ul')
-        .removeClass(settings.openClass)
-
-  # Changing classes depending on viewport width and adding in hover support
-  resizer = ->
-    if $(window).width() <= breakpoint
-      $nav.removeClass(settings.largeClass)
-    else if $(window).width() > breakpoint
-      $nav.addClass(settings.largeClass)
-      #resetMenu()
-      if settings.hoverIntent is true
-        # Requires hoverIntent jquery plugin http://cherne.net/brian/resources/jquery.hoverIntent.html
-        $('.'+settings.parentClass).hoverIntent(
-          over: showMenu,
-          out: resetMenu,
-          timeout: settings.hoverIntentTimeout
-        )
-      else if settings.hoverIntent is false
-        $('.'+settings.parentClass).on('mouseenter', showMenu).on('mouseleave', resetMenu)
-
-  # Set navigation element for this instantiation
-  #$('.'+settings.navClass).data('navEl', $nav)
+  getOpenCloseElements = ->
+    $nav.removeClass(settings.openClass).addClass(settings.closedClass)
+    .children('.'+settings.buttonMenuClass).removeClass(settings.openClass).addClass(settings.closedClass)
+    $breadcrumb.removeClass(settings.openClass).addClass(settings.closedClass)
+    .children('.'+settings.buttonClass).removeClass(settings.openClass).addClass(settings.closedClass)
 
   closeMenu = ->
-    $nav.removeClass(settings.openClass)
-    $nav.find('.'+settings.openClass).removeClass(settings.openClass)
+    getOpenCloseElements()
+    $nav.removeClass(settings.openClass).addClass(settings.closedClass)
+    .children('.'+settings.buttonMenuClass).removeClass(settings.openClass).addClass(settings.closedClass)
+    $breadcrumb.removeClass(settings.openClass).addClass(settings.closedClass)
+    .children('.'+settings.buttonClass).removeClass(settings.openClass).addClass(settings.closedClass)
 
   openMenu = ->
-    $nav.addClass(settings.openClass)
-    .children('.'+settings.buttonMenuClass).addClass(settings.openClass)
-    $breadcrumb.addClass(settings.openClass)
-    .children('.'+settings.buttonClass).addClass(settings.openClass)
+    $('.'+settings.closedClass).removeClass(settings.closedClass).addClass(settings.openClass)
 
   closeRootsMenu = ->
-    $nav.removeClass(settings.rootsOpenClass)
-    $nav.find('.'+settings.rootsOpenClass).removeClass(settings.rootsOpenClass)
+    $nav.removeClass(settings.rootsOpenClass).addClass(settings.rootsClosedClass)
+    $nav.find('.'+settings.rootsOpenClass).removeClass(settings.rootsOpenClass).addClass(settings.rootsClosedClass)
   openRootsMenu = ->
-    $nav.addClass(settings.rootsOpenClass)
-    .children('ul').children('li').addClass(settings.rootsOpenClass)
-    $nav.children('.'+settings.buttonRootsMenuClass).addClass(settings.rootsOpenClass)
+    $nav.removeClass(settings.rootsClosedClass).addClass(settings.rootsOpenClass)
+    .children('ul').children('li').removeClass(settings.rootsClosedClass).addClass(settings.rootsOpenClass)
+    $nav.children('.'+settings.buttonRootsMenuClass).removeClass(settings.rootsClosedClass).addClass(settings.rootsOpenClass)
 
   addListeners = ->
     # Toggle touch for nav menu
@@ -166,6 +141,7 @@ $.fn.crumbnav = (options) ->
     )
 
     # Toggle touch for roots menu
+    ###
     $nav.children('.'+settings.buttonRootsMenuClass).on('click', (e) ->
       e.stopPropagation()
       e.preventDefault()
@@ -175,6 +151,7 @@ $.fn.crumbnav = (options) ->
         closeMenu()
         openRootsMenu()
     )
+    ###
 
     # Toggle for sub-menus
     $('.blaa'+settings.buttonClass).on('click', (e) ->
@@ -203,20 +180,12 @@ $.fn.crumbnav = (options) ->
         $current.addClass(settings.openClass).children('.'+settings.buttonClass).addClass(settings.openClass)
     )
 
-  addListeners()
-
   # Sub ul's should have a class of 'open' if an element has focus
   $navUl.find('.blaa'+settings.parentClass + ' *').focus ->
     # remove class of open from all elements that are not focused
     $(@).parent('.'+settings.parentClass).parent().find(".open").not(@).removeClass("open").hide()
     # add class of open to focused ul
     $(@).parent('.'+settings.parentClass).find('>ul').addClass("open").show()
-
-  # Call once to set
-  resizer()
-
-  # Call on browser resize
-  $(window).on('resize', resizer)
 
   removeBreadcrumbClasses = ->
     $current.removeClass(settings.currentClass)
@@ -227,15 +196,74 @@ $.fn.crumbnav = (options) ->
       $(@)[0].className = $(@)[0].className.replace(re, '')
 
   @.refreshNav = ($newActive) ->
+    removeFlexMenu()
     removeBreadcrumbClasses()
-    $nav.removeClass(settings.openClass)
     $newActive.parent('li').addClass(settings.currentClass)
     $current = $('li.'+settings.currentClass, $navUl)
     addBreadcrumbClasses()
+    addParentClasses()
     addBasicClasses()
+    addButtons()
     #TODO Make DRY!
     if $navUl.children('li').length > 1 && $current.length == 1
       $nav.addClass(settings.multipleRootsClass)
+      ###
       if $('.'+settings.buttonRootsMenuClass).length == 0
         $navUl.before($(button).addClass(settings.buttonRootsMenuClass))
+      ###
+    closeRootsMenu()
+    closeMenu()
+    refreshFlexMenu()
     addListeners()
+
+  refreshFlexMenu = ->
+    removeFlexMenu()
+    if $nav.hasClass(settings.largeClass)
+      addFlexMenu()
+
+  addFlexMenu = ->
+    $moreMenu = $($breadcrumb[$breadcrumb.length - 2]).find('> ul')
+    $horizontalMenuItems = $moreMenu.find('> li')
+    $moreItems = $horizontalMenuItems.filter((index) ->
+      # Check the element is floated to the left.
+      return $horizontalMenuItems[index].offsetTop > 0
+    )
+    if $moreItems.length
+      $moreMenu.append($('<li class="flexMenu-viewMore"><span class="more-menu-button"><i></i></span></li>'))
+      $popup = $('<ul class="flexMenu-popup" style="display:none;"></ul>')
+
+      $moreItems.prependTo($popup)
+
+      $('.flexMenu-viewMore').append($popup)
+
+      $('.more-menu-button').click((e) ->
+        $('.flexMenu-popup').toggle()
+        e.preventDefault()
+      )
+
+  removeFlexMenu = ->
+    $('.flexMenu-viewMore > span').remove()
+    $('.flexMenu-popup').unwrap().find('>li').unwrap()
+
+  refreshFlexMenu()
+
+  # Get the breakpoint set with data-breakpoint
+  if $nav.data('breakpoint') then breakpoint = $nav.data('breakpoint')
+
+  resizer = ->
+    if $(window).width() <= breakpoint
+      $nav.removeClass(settings.largeClass)
+    else if $(window).width() > breakpoint
+      $nav.addClass(settings.largeClass)
+
+    refreshFlexMenu()
+
+  # Call once to set
+  resizer()
+
+  # Call on browser resize
+  $(window).on('resize', resizer)
+
+  @.refreshNav($('>a', $current))
+
+  @

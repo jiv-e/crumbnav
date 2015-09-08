@@ -98,3 +98,10 @@
     margin-left: -$size*0.5;
   }
 }
+
+@mixin box-model($model:content-box) {
+  -moz-box-sizing: $model; -webkit-box-sizing: $model; box-sizing: $model;
+  &:before, &:after {
+    -moz-box-sizing: $model; -webkit-box-sizing: $model; box-sizing: $model;
+  }
+}

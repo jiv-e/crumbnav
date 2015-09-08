@@ -64,6 +64,8 @@ $.fn.crumbnav = (options) ->
   $root = $()
   $parents = $()
   $breadcrumb = $()
+  $moreMenu = $()
+  $morePopup = $()
   # TODO Should we use a button element?
   button = '<span class="'+settings.buttonClass+'"><i></i></span>'
 
@@ -81,20 +83,18 @@ $.fn.crumbnav = (options) ->
       .each (index) ->
         $(@).addClass(settings.breadcrumbClass+'-out-'+index+' '+settings.breadcrumbClass+'-in-'+($breadcrumbCount - index - 1))
 
+    # Root class
+    $current = $('li.'+settings.currentClass, $navUl)
+    if $current.length == 0
+    then $root = $nav.addClass(settings.rootClass)
+    else $root = $navUl.children('.'+settings.parentClass+'.'+settings.breadcrumbClass).addClass(settings.rootClass)
+
   # Set parent classes in the markup
   addParentClasses = ->
     $navUl.find("li").each ->
       if $(@).has("ul").length
         $(@).addClass(settings.parentClass)
         $parents = $parents.add($(@))
-
-
-  # Set some classes in the markup
-  addBasicClasses = ->
-    $current = $('li.'+settings.currentClass, $navUl)
-    if $current.length == 0
-    then $root = $nav.addClass(settings.rootClass)
-    else $root = $navUl.children('.'+settings.parentClass+'.'+settings.breadcrumbClass).addClass(settings.rootClass)
 
   # Add in touch buttons
   addButtons = ->
@@ -196,14 +196,10 @@ $.fn.crumbnav = (options) ->
       $(@)[0].className = $(@)[0].className.replace(re, '')
 
   @.refreshNav = ($newActive) ->
-    removeFlexMenu()
     removeBreadcrumbClasses()
     $newActive.parent('li').addClass(settings.currentClass)
     $current = $('li.'+settings.currentClass, $navUl)
     addBreadcrumbClasses()
-    addParentClasses()
-    addBasicClasses()
-    addButtons()
     #TODO Make DRY!
     if $navUl.children('li').length > 1 && $current.length == 1
       $nav.addClass(settings.multipleRootsClass)
@@ -213,7 +209,9 @@ $.fn.crumbnav = (options) ->
       ###
     closeRootsMenu()
     closeMenu()
-    refreshFlexMenu()
+    removeMoreMenuPopup()
+    addMoreMenuPopup()
+    calcWidth()
     addListeners()
 
   refreshFlexMenu = ->
@@ -241,11 +239,41 @@ $.fn.crumbnav = (options) ->
         e.preventDefault()
       )
 
-  removeFlexMenu = ->
-    $('.flexMenu-viewMore > span').remove()
-    $('.flexMenu-popup').unwrap().find('>li').unwrap()
+  addMoreMenuPopup = ->
+    $moreMenu = $($breadcrumb[$breadcrumb.length - 2]).find('> ul')
+    $morePopup = $('<li class="more" data-width="80"><span>More</span><ul></ul></li>')
+    $moreMenu.append($morePopup)
 
-  refreshFlexMenu()
+  removeMoreMenuPopup = ->
+    if $moreMenu.length
+      $('> ul > li', $morePopup).each(->
+        @.insertBefore($morePopup)
+      )
+      $morePopup.remove()
+
+  calcWidth = ->
+    navWidth = 0;
+    popupWidth = $morePopup.outerWidth(true)
+    $visibleMenuItems = $moreMenu.find(' > li:not(.more)')
+    $visibleMenuItems.each(->
+      navWidth += $(@).outerWidth( true )
+    )
+    availableSpace = $moreMenu.outerWidth(true) - $('>li',$moreMenu)[0].offsetLeft - popupWidth - 40;
+
+    if (navWidth > availableSpace)
+      lastItem = $visibleMenuItems.last()
+      lastItem.attr('data-width', lastItem.outerWidth(true))
+      lastItem.prependTo($('> ul', $morePopup))
+      calcWidth()
+    else
+      firstMoreElement = $('ul > li', $morePopup).first();
+      if navWidth + firstMoreElement.data('width') < availableSpace
+        firstMoreElement.insertBefore($morePopup)
+
+    if $('> ul >li', $morePopup).length
+      $morePopup.css('display','inline-block')
+    else
+      $morePopup.css('display','none')
 
   # Get the breakpoint set with data-breakpoint
   if $nav.data('breakpoint') then breakpoint = $nav.data('breakpoint')
@@ -255,15 +283,14 @@ $.fn.crumbnav = (options) ->
       $nav.removeClass(settings.largeClass)
     else if $(window).width() > breakpoint
       $nav.addClass(settings.largeClass)
-
-    refreshFlexMenu()
-
-  # Call once to set
-  resizer()
+    if $morePopup.length
+      calcWidth()
 
   # Call on browser resize
   $(window).on('resize', resizer)
-
+  # Call once to set
+  resizer()
+  addParentClasses()
+  addButtons()
   @.refreshNav($('>a', $current))
-
   @

@@ -61,11 +61,11 @@
   }
 
   //flexMenu support
-  .flexMenu-viewMore {
+  .more {
     position: absolute;
     right: 0;
   }
-  .flexMenu-popup {
+  .more > ul {
     position: absolute;
     top: $elementHeight;
     right: 0;
@@ -107,8 +107,7 @@
 
   // If large and closed:
   .#{$largeClass}.#{$closedClass} & {
-    display: block;
-    float:left;
+    display: inline-block;
     > .#{$buttonClass} {
       display: none;
     }

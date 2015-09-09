@@ -64,8 +64,10 @@
   .more {
     position: absolute;
     right: 0;
+    top: 0;
   }
-  .more > ul {
+  .more__popup {
+    display: none;
     position: absolute;
     top: $elementHeight;
     right: 0;
@@ -87,17 +89,17 @@
   }
 }
 
-.#{$breadcrumbClass}-in-1 {
+.#{$largeClass}.#{$closedClass} .#{$breadcrumbClass}-in-1.#{$closedClass} {
   //Prevent horizontal contextual links list from
   //overlapping with the main menu
-  &.#{$closedClass} {
-    padding-right: $elementHeight;
-    .#{$buttonClass} {
-      display: none;
-    }
+  padding-right: $elementHeight;
+  //Hide current level button
+  > .#{$buttonClass} {
+    display: none;
   }
-  .js &.#{$closedClass} > ul {
-    //Padding preventing overlap with .more-menu-button
+
+  .js & > ul {
+    //Padding preventing overlap with .more__button
     padding-right: $elementHeight;
   }
 }
@@ -107,7 +109,8 @@
 
   // If large and closed:
   .#{$largeClass}.#{$closedClass} & {
-    display: inline-block;
+    display: block;
+    float: left;
     > .#{$buttonClass} {
       display: none;
     }
@@ -134,7 +137,8 @@
 
 .#{$multipleRootsClass} {
   .#{$rootClass} > a {
-    padding-left: $elementHeight;
+    //Padding for roots menu button
+    //padding-left: $elementHeight;
   }
 }
 
@@ -214,6 +218,12 @@
   }
 }
 
+.#{$rootClass}.#{$openClass} {
+  > .#{$buttonClass} {
+    display: none;
+  }
+}
+
 .#{$navClass}.#{$multipleRootsClass}.#{$openClass} > ul > li {
   display: block;
 }
@@ -254,7 +264,7 @@
 
 //Refactor
 //.#{$buttonClass}--more-menu {
-.more-menu-button {
+.more__button {
   @extend %button;
   display: block;
 }

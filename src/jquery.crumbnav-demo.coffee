@@ -9,10 +9,25 @@ $.fn.crumbnavDemo = (options) ->
   $nav.clickHandler = (e) ->
     e.preventDefault()
     $nav.find('*').unbind('click')
-    $nav.refreshNav($(@))
+    removeMoreMenu()
+    removeButtons()
+    $nav.find('> ul *').removeClass()
+    $(e.target).parent('li').addClass($nav.options.currentClass)
+    $nav.makeNav()
     $('a').on('click', $nav.clickHandler)
     return false;
 
   $('a').on('click', $nav.clickHandler)
+
+  removeMoreMenu = ->
+    $moreMenu = $('.more')
+    if $moreMenu.length
+      $('.more__popup > li').each(->
+        $(@).insertBefore($moreMenu)
+      )
+      $moreMenu.detach()
+
+  removeButtons = ->
+    $('.'+$nav.options.buttonClass).remove()
 
   @

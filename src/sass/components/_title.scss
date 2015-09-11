@@ -1,0 +1,12 @@
+.#{$navTitleClass} {
+  display: none;
+  height: $elementHeight;
+  padding: 0 0 0 1em;
+  line-height: $elementHeight;
+  .#{$rootClass} & {
+    display: block;
+  }
+  .#{$largeClass}.#{$rootClass} & {
+    display: none;
+  }
+}

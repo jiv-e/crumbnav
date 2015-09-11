@@ -33,17 +33,12 @@
     }
   }
   li {
-    position: relative;
-    .js & {
-      display: none;
-    }
     min-height: $elementHeight;
     line-height: $elementHeight;
   }
   li > a {
     position: relative;
     display: block;
-    height: 100%;
     white-space: nowrap;
   }
 
@@ -60,23 +55,30 @@
     display: block;
   }
 
-  //flexMenu support
-  .more {
-    position: absolute;
-    right: 0;
-    top: 0;
+}
+.#{$topParentClass},
+.#{$parentClass} {
+  position: relative;
+}
+
+.#{$moreMenuClass} {
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+.#{$moreMenuClass}__popup {
+  display: none;
+  position: absolute;
+  top: $elementHeight;
+  right: 0;
+  > li {
+    display: block;
   }
-  .more__popup {
+  .#{$buttonClass} {
     display: none;
-    position: absolute;
-    top: $elementHeight;
-    right: 0;
-    > li {
-      display: block;
-    }
-    .#{$buttonClass} {
-      display: none;
-    }
+  }
+  .#{$openClass} & {
+    display: block;
   }
 }
 
@@ -99,7 +101,7 @@
   }
 
   .js & > ul {
-    //Padding preventing overlap with .more__button
+    //Padding preventing overlap with more button
     padding-right: $elementHeight;
   }
 }
@@ -111,35 +113,16 @@
   .#{$largeClass}.#{$closedClass} & {
     display: block;
     float: left;
-    > .#{$buttonClass} {
+    > .#{$buttonParentClass} {
       display: none;
     }
   }
 
 }
 
-.#{$navTitleClass} {
-  display: none;
-  height: 50px;
-  padding: 0 0 0 $elementHeight;
-  line-height: $elementHeight;
-  .#{$rootClass} & {
-    display: block;
-  }
-}
-
-
-
 //Contextual submenu (+) positioned under the menu button (arrow down)
 .#{$breadcrumbClass}-in-1 > .#{$buttonClass} {
   top: $elementHeight;
-}
-
-.#{$multipleRootsClass} {
-  .#{$rootClass} > a {
-    //Padding for roots menu button
-    //padding-left: $elementHeight;
-  }
 }
 
 //Make breadcrumb links clickable
@@ -149,12 +132,6 @@
 .#{$breadcrumbClass}-out-3 > a {z-index: 2;}
 .#{$breadcrumbClass}-out-4 > a {z-index: 1;}
 
-
-.#{$navClass}.#{$openClass} .#{$buttonClass},
-.#{$breadcrumbClass}-in-1 .#{$buttonClass},
-.#{$buttonClass}.#{$openClass} {
-  display: block;
-}
 
 // Menu open
 .#{$navClass}.#{$openClass} {
@@ -173,8 +150,7 @@
   }
   li.#{$breadcrumbClass}.#{$openClass},
   li.#{$breadcrumbClass}.#{$openClass} > ul > li,
-  li.#{$currentClass}.#{$openClass},
-  .#{$breadcrumbClass}-in-1.#{$breadcrumbClass}-out-0 .#{$buttonClass}{
+  li.#{$currentClass}.#{$openClass}{
     display: block;
   }
 
@@ -212,59 +188,93 @@
     float: none;
   }
 }
-.#{$parentClass}.#{$openClass} {
+.#{$openClass} {
   > ul > li {
     display: block;
   }
 }
 
-.#{$rootClass}.#{$openClass} {
-  > .#{$buttonClass} {
+.#{$closedClass} {
+  > ul > li {
     display: none;
   }
 }
 
-.#{$navClass}.#{$multipleRootsClass}.#{$openClass} > ul > li {
+.#{$buttonMoreMenuClass} {
   display: block;
 }
 
-%button {
-  position: absolute;
-  z-index: 100;
-  top: 0;
-  right: 0;
-  width: $elementHeight;
-  height: $elementHeight;
-  display: none;
-  cursor: pointer;
-  &:hover {
-    cursor: pointer;
+.#{$firstLevelClass}.#{$largeClass} {
+  //Top level menu
+  > ul {
+    display: flex;
+    justify-content: space-around;
   }
-  > i {
-    position: relative;
-    height: $elementHeight;
+  //Second level menu
+  > ul > li {
+    display: block;
+    flex-grow: 1;
+    flex-basis: 0;
+    text-align: center;
+    > ul {
+      display: none;
+      flex-direction: column;
+      justify-content: flex-start;
+      > li {
+        text-align: left;
+        display: block;
+        .#{$buttonClass} {
+          display: block;
+        }
+      }
+    }
+
+    &:hover > ul {
+      display: flex;
+    }
+  }
+  .#{$buttonMenuClass} {
+    display: none;
+  }
+}
+
+.#{$buttonClass}.#{$buttonTopParentClass} {
+  display: block;
+  .#{$largeClass} &,
+  .#{$breadcrumbClass}-out-0 & {
+    display: none;
+  }
+}
+
+.#{$largeClass} .#{$breadcrumbClass}-out-0.#{$closedClass} {
+  > a {
+    float: left;
+  }
+}
+
+.#{$openClass} > ul > .#{$topParentClass},
+.#{$topParentClass} {
+  display: none;
+}
+
+
+.#{$firstLevelClass} {
+  .#{$navTitleClass} {
+    display: block;
+    .#{$largeClass} {
+      display: none;
+    }
+  }
+  &.#{$openClass} .#{$topParentClass} {
     display: block;
   }
 }
-
-.#{$buttonClass} {
-  @extend %button;
+.#{$largeClass} {
+  .#{$navTitleClass} {
+    display: none;
+  }
 }
 
-.#{$buttonRootsMenuClass},
-.#{$buttonMenuClass} {
-  display: block;
-  height: $elementHeight;
-}
-
-.#{$buttonRootsMenuClass} {
-  left: 0;
-  right: inherit;
-}
-
-//Refactor
-//.#{$buttonClass}--more-menu {
-.more__button {
-  @extend %button;
-  display: block;
+.#{$closedClass} .#{$breadcrumbClass}-out-0 > a {
+  float: left;
 }

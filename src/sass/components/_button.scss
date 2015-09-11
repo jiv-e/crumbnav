@@ -1,0 +1,37 @@
+%button {
+  position: absolute;
+  z-index: 100;
+  top: 0;
+  right: 0;
+  width: $elementHeight;
+  height: $elementHeight;
+  display: none;
+  cursor: pointer;
+  &:hover {
+    cursor: pointer;
+  }
+  > i {
+    position: relative;
+    height: $elementHeight;
+    display: block;
+  }
+}
+
+.#{$buttonClass} {
+  @extend %button;
+}
+
+.#{$buttonRootsMenuClass},
+.#{$buttonMenuClass} {
+  display: block;
+  height: $elementHeight;
+}
+
+.#{$buttonRootsMenuClass} {
+  left: 0;
+  right: inherit;
+}
+
+.#{$buttonMoreMenuClass} {
+  display: block;
+}

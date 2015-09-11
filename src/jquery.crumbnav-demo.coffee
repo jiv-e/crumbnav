@@ -20,9 +20,9 @@ $.fn.crumbnavDemo = (options) ->
   $('a').on('click', $nav.clickHandler)
 
   removeMoreMenu = ->
-    $moreMenu = $('.more')
+    $moreMenu = $('.'+$nav.options.moreMenuClass)
     if $moreMenu.length
-      $('.more__popup > li').each(->
+      $('> ul > li', $moreMenu).each(->
         $(@).insertBefore($moreMenu)
       )
       $moreMenu.detach()

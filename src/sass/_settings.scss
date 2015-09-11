@@ -1,15 +1,20 @@
 //SELECTORS
-$opacityClass: crumbnav--opacity;
 $navClass: crumbnav;
 $navTitleClass: crumbnav__title;
+$topParentClass: crumbnav__top-parent;
 $parentClass: crumbnav__parent;
+$moreMenuClass: crumbnav__more-menu;
 $openClass: cn-open;
 $closedClass: cn-close;
 $currentClass: active;
+$firstLevelClass: crumbnav--first-level;
 $rootClass: crumbnav__root;
 $breadcrumbClass: crumbnav-crumb;
 $buttonClass: crumbnav__button;
 $buttonMenuClass: crumbnav__button--menu;
+$buttonMoreMenuClass: crumbnav__button--more-menu;
+$buttonParentClass: crumbnav__button--parent;
+$buttonTopParentClass: crumbnav__button--top-parent;
 $buttonRootsMenuClass: crumbnav__button--root-menu;
 $multipleRootsClass: crumbnav--multiple-roots;
 $rootsOpenClass: cn-open-roots;

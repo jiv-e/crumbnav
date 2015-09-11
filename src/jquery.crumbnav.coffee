@@ -200,7 +200,7 @@ $.fn.crumbnav = (options) ->
 
   removeMoreMenu = ->
     if $.contains(document.documentElement, $moreMenu[0])
-      $('ul > li', $moreMenu).each(->
+      $('> ul > li', $moreMenu).each(->
         $(@).insertBefore($moreMenu)
       )
       $moreMenu.detach()
@@ -221,7 +221,7 @@ $.fn.crumbnav = (options) ->
         lastItem.prependTo($('> ul', $moreMenu))
         calcWidth()
       else
-        firstMoreElement = $('ul > li', $moreMenu).first();
+        firstMoreElement = $('> ul > li', $moreMenu).first();
         if navWidth + firstMoreElement.data('width') < availableSpace
           firstMoreElement.insertBefore($moreMenu)
 

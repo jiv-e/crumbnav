@@ -19,37 +19,37 @@ $ = jQuery
 $('html').removeClass('no-js').addClass('js')
 
 $ ->
-  #attachFastClick = Origami.fastclick;
-  #attachFastClick(document.body);
+#attachFastClick = Origami.fastclick;
+#attachFastClick(document.body);
 
 $.fn.crumbnav = (options) ->
   settings = $.extend({
-    'navClass': 'crumbnav',
-    'navTitleClass': 'crumbnav__title',
-    'topParentClass': 'crumbnav__top-parent',
-    'parentClass': 'crumbnav__parent',
-    'openClass': 'cn-open',
-    'closedClass': 'cn-close',
-    'rootsOpenClass': 'cn-open-roots',
-    'rootsClosedClass': 'cn-close-roots',
-    'firstLevelClass': 'crumbnav--first-level',
-    'rootClass': 'crumbnav__root',
-    'currentClass': 'active'
-    'moreMenuClass': 'crumbnav__more-menu',
-    'breadcrumbClass': 'crumbnav-crumb',
-    'buttonClass': 'crumbnav__button',
-    'buttonTopParentClass': 'crumbnav__button--top-parent',
-    'buttonParentClass': 'crumbnav__button--parent',
-    'buttonMenuClass': 'crumbnav__button--menu',
-    'buttonMoreMenuClass': 'crumbnav__button--more-menu',
-    'buttonRootsMenuClass': 'crumbnav__button--root-menu',
-    'multipleRootsClass': 'crumbnav--multiple-roots',
-    'largeClass': 'crumbnav--large',
-    'hoverIntent': false,
-    'hoverIntentTimeout': 150,
-    'calcItemWidths': false,
-    'hover': false,
-    'menuText': 'Menu',
+      'navClass': 'crumbnav',
+      'navTitleClass': 'crumbnav__title',
+      'topParentClass': 'crumbnav__top-parent',
+      'parentClass': 'crumbnav__parent',
+      'openClass': 'cn-open',
+      'closedClass': 'cn-close',
+      'rootsOpenClass': 'cn-open-roots',
+      'rootsClosedClass': 'cn-close-roots',
+      'firstLevelClass': 'crumbnav--first-level',
+      'rootClass': 'crumbnav__root',
+      'currentClass': 'active'
+      'moreMenuClass': 'crumbnav__more-menu',
+      'breadcrumbClass': 'crumbnav-crumb',
+      'buttonClass': 'crumbnav__button',
+      'buttonTopParentClass': 'crumbnav__button--top-parent',
+      'buttonParentClass': 'crumbnav__button--parent',
+      'buttonMenuClass': 'crumbnav__button--menu',
+      'buttonMoreMenuClass': 'crumbnav__button--more-menu',
+      'buttonRootsMenuClass': 'crumbnav__button--root-menu',
+      'multipleRootsClass': 'crumbnav--multiple-roots',
+      'largeClass': 'crumbnav--large',
+      'hoverIntent': false,
+      'hoverIntentTimeout': 150,
+      'calcItemWidths': false,
+      'hover': false,
+      'menuText': 'Menu',
     },
     options
   )
@@ -78,14 +78,14 @@ $.fn.crumbnav = (options) ->
     $nav.prepend('<div class="'+settings.navTitleClass+'">'+settings.menuText+'</div>')
 
   addBreadcrumbClasses = ->
-    # Breadcrumb trail
+# Breadcrumb trail
     $currentParents = $current.parentsUntil($navUl, 'li')
     $breadcrumb = $currentParents.add($current)
     $breadcrumbCount = $breadcrumb.length
     $breadcrumb
-      .addClass(settings.breadcrumbClass)
-      .each (index) ->
-        $(@).addClass(settings.breadcrumbClass+'-out-'+index+' '+settings.breadcrumbClass+'-in-'+($breadcrumbCount - index - 1))
+    .addClass(settings.breadcrumbClass)
+    .each (index) ->
+      $(@).addClass(settings.breadcrumbClass+'-out-'+index+' '+settings.breadcrumbClass+'-in-'+($breadcrumbCount - index - 1))
 
     # Root class
     if $current.length
@@ -107,7 +107,7 @@ $.fn.crumbnav = (options) ->
   addButtons = ->
     if $navUl.children('li').length > 1
       $nav.addClass(settings.multipleRootsClass)
-      #$navUl.before($($button).addClass(settings.buttonRootsMenuClass))
+    #$navUl.before($($button).addClass(settings.buttonRootsMenuClass))
     $navUl.after($button.clone().addClass(settings.buttonMenuClass))
     $topParentButtons = $button.clone().addClass(settings.buttonTopParentClass).appendTo($topParents)
     $parentButtons = $button.clone().addClass(settings.buttonParentClass).appendTo($parents)
@@ -139,7 +139,7 @@ $.fn.crumbnav = (options) ->
     $nav.children('.'+settings.buttonRootsMenuClass).removeClass(settings.rootsClosedClass).addClass(settings.rootsOpenClass)
 
   addListeners = ->
-    # Toggle touch for nav menu
+# Toggle touch for nav menu
     $('> .'+settings.buttonMenuClass, $nav).on('click', (e) ->
       e.stopPropagation()
       e.preventDefault()

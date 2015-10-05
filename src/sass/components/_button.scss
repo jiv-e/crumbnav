@@ -5,7 +5,6 @@
   right: 0;
   width: $elementHeight;
   height: $elementHeight;
-  display: none;
   cursor: pointer;
   &:hover {
     cursor: pointer;
@@ -21,17 +20,8 @@
   @extend %button;
 }
 
-.#{$buttonRootsMenuClass},
-.#{$buttonMenuClass} {
-  display: block;
-  height: $elementHeight;
-}
-
-.#{$buttonRootsMenuClass} {
-  left: 0;
-  right: inherit;
-}
-
-.#{$buttonMoreMenuClass} {
-  display: block;
-}
+@import "button--top-parent";
+@import "button--contextual-menu";
+@import "button--menu";
+@import "button--roots-menu";
+@import "button--more-menu";

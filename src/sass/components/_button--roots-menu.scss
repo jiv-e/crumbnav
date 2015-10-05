@@ -1,0 +1,13 @@
+.#{$buttonRootsMenuClass} {
+  display: block;
+  height: $elementHeight;
+  left: 0;
+  right: inherit;
+  .#{$largeClass} & {
+    display: none;
+  }
+  .#{$navClass}-length-0 &,
+  .#{$navClass}-length-0.#{$openClass} &{
+    display: none;
+  }
+}

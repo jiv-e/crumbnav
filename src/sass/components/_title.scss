@@ -3,10 +3,10 @@
   height: $elementHeight;
   padding: 0 0 0 1em;
   line-height: $elementHeight;
-  .#{$rootClass} & {
+  .#{$navClass}-length-0 & {
     display: block;
   }
-  .#{$largeClass}.#{$rootClass} & {
+  .#{$largeClass} & {
     display: none;
   }
 }

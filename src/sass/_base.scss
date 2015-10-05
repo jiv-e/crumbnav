@@ -32,26 +32,6 @@
       padding: 0;
     }
   }
-  li {
-    min-height: $elementHeight;
-    line-height: $elementHeight;
-  }
-  li > a {
-    position: relative;
-    display: block;
-    white-space: nowrap;
-  }
-
-  // Show contextual menu button (+)
-  & > ul > .#{$buttonClass},
-  .#{$breadcrumbClass}-in-1 > .#{$buttonClass} {
-    display: block;
-  }
-
-  &.#{$closedClass} li.#{$breadcrumbClass} {
-    display: block;
-  }
-
 }
 .#{$topParentClass},
 .#{$parentClass} {
@@ -103,31 +83,6 @@
   }
 }
 
-// Current item siblings
-.#{$breadcrumbClass}-in-1 > ul > li {
-
-  // If large and closed:
-  .#{$largeClass}.#{$closedClass} & {
-    display: block;
-    float: left;
-    > .#{$buttonParentClass} {
-      display: none;
-    }
-  }
-
-}
-
-//Contextual submenu (+) positioned under the menu button (arrow down)
-.#{$breadcrumbClass}-in-1 > .#{$buttonClass} {
-  top: $elementHeight;
-}
-
-//Make breadcrumb links clickable
-.#{$breadcrumbClass}-out-0 > a {z-index: 5;}
-.#{$breadcrumbClass}-out-1 > a {z-index: 4;}
-.#{$breadcrumbClass}-out-2 > a {z-index: 3;}
-.#{$breadcrumbClass}-out-3 > a {z-index: 2;}
-.#{$breadcrumbClass}-out-4 > a {z-index: 1;}
 
 
 // Menu open
@@ -235,56 +190,15 @@
   }
 }
 
-.#{$buttonClass}.#{$buttonTopParentClass} {
-  display: block;
-  .#{$largeClass} &,
-  .#{$breadcrumbClass}-out-0 & {
-    display: none;
-  }
-}
-
-.#{$largeClass} .#{$breadcrumbClass}-out-0.#{$closedClass} {
-  > a {
-    float: left;
-  }
-}
-
-.#{$openClass} > ul > .#{$topParentClass},
-.#{$topParentClass} {
-  display: none;
-}
-
-
-.#{$firstLevelClass} {
+.#{$firstLevelClass}.#{$breadcrumbClass}-length-0 {
   .#{$navTitleClass} {
     display: block;
-    .#{$largeClass} {
-      display: none;
-    }
   }
   &.#{$openClass} .#{$topParentClass} {
     display: block;
   }
 }
-.#{$largeClass} {
-  .#{$navTitleClass} {
-    display: none;
-  }
-}
 
-.#{$closedClass} .#{$breadcrumbClass} > a {
-  float: left;
-}
-
-//First breadcrumb is not floated if there's only two items
-//in the breadcrumb.
-.#{$closedClass} .#{$breadcrumbClass}.#{$breadcrumbClass}-in-1 > a {
-  float: none;
-}
-//...but not if menu is in large mode.
-.#{$largeClass}.#{$closedClass} .#{$breadcrumbClass}.#{$breadcrumbClass}-in-1 > a {
-  float: left;
-}
 .#{$navClass}.#{$closedClass} {
   //Second level context menu button
   .#{$rootClass}.#{$breadcrumbClass}-in-1 > .#{$buttonClass} {

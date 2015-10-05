@@ -11,7 +11,12 @@ $.fn.crumbnavDemo = (options) ->
     $nav.find('*').unbind('click')
     removeMoreMenu()
     removeButtons()
-    $nav.find('> ul *').removeClass()
+    # Remove classes.
+    $nav.removeClass()
+    $nav.find('*').removeClass()
+    # Add classes
+    $nav.addClass($nav.options.navClass)
+    $nav.find('> div').addClass($nav.options.navTitleClass)
     $(e.target).parent('li').addClass($nav.options.currentClass)
     $nav.makeNav()
     $('a').on('click', $nav.clickHandler)

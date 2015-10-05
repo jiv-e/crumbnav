@@ -1,0 +1,6 @@
+.#{$breadcrumbClass}-in-1 > .#{$buttonClass} {
+  // Show contextual menu button (+) under the menu button (arrow down).
+  display: block;
+  //Position contextual menu button.
+  top: $elementHeight;
+}

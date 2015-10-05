@@ -1,0 +1,7 @@
+.#{$buttonMenuClass} {
+  display: block;
+  height: $elementHeight;
+  .#{$rootsOpenClass} & {
+    display: none;
+  }
+}

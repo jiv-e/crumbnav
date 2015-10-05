@@ -1,0 +1,6 @@
+.#{$topParentClass} {
+
+  .#{$openClass}:not(.#{$navClass}-length-0) > ul > & {
+    display: none;
+  }
+}

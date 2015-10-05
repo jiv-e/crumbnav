@@ -70,10 +70,6 @@
   }
 }
 
-// Indent current item
-.#{$breadcrumbClass}-in-0 > a {
-  padding-left: $indent*2;
-}
 .#{$openClass}.#{$multipleRootsClass} .#{$breadcrumbClass}-in-0 > a {
   padding-left: $elementHeight;
 }

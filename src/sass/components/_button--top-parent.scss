@@ -1,0 +1,10 @@
+.#{$buttonClass}.#{$buttonTopParentClass} {
+  display: block;
+  .#{$largeClass} &,
+  .#{$breadcrumbClass}-out-0 & {
+    display: none;
+    .#{$rootsOpenClass}:not(.#{$largeClass}) & {
+      display: block;
+    }
+  }
+}

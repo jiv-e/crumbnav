@@ -115,14 +115,15 @@
 	    $nav.prepend('<div class="' + settings.navTitleClass + '">' + settings.menuText + '</div>');
 	  }
 	  addBreadcrumbClasses = function() {
-	    var $breadcrumbCount, $currentParents;
+	    var $breadcrumbLength, $currentParents;
 	    $currentParents = $current.parentsUntil($navUl, 'li');
 	    $breadcrumb = $currentParents.add($current);
-	    $breadcrumbCount = $breadcrumb.length;
+	    $breadcrumbLength = $breadcrumb.length;
 	    $breadcrumb.addClass(settings.breadcrumbClass).each(function(index) {
-	      return $(this).addClass(settings.breadcrumbClass + '-out-' + index + ' ' + settings.breadcrumbClass + '-in-' + ($breadcrumbCount - index - 1));
+	      return $(this).addClass(settings.breadcrumbClass + '-out-' + index + ' ' + settings.breadcrumbClass + '-in-' + ($breadcrumbLength - index - 1));
 	    });
-	    if ($current.length) {
+	    $nav.addClass(settings.navClass + '-length-' + $breadcrumbLength);
+	    if ($current.length && $breadcrumbLength > 1) {
 	      return $root = $navUl.children('.' + settings.breadcrumbClass).addClass(settings.rootClass);
 	    } else {
 	      return $root = $nav.addClass(settings.firstLevelClass);
@@ -146,6 +147,7 @@
 	    if ($navUl.children('li').length > 1) {
 	      $nav.addClass(settings.multipleRootsClass);
 	    }
+	    $navUl.before($button.clone().addClass(settings.buttonRootsMenuClass));
 	    $navUl.after($button.clone().addClass(settings.buttonMenuClass));
 	    $topParentButtons = $button.clone().addClass(settings.buttonTopParentClass).appendTo($topParents);
 	    return $parentButtons = $button.clone().addClass(settings.buttonParentClass).appendTo($parents);

@@ -147,6 +147,7 @@
 
     &:hover > ul {
       display: flex;
+      position: absolute;
     }
   }
   .#{$mainModifier} {

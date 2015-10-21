@@ -25,6 +25,8 @@
   }
 }
 
-.#{$nav}.#{$openClass} .#{$topModifier}:not(.#{$breadcrumbClass}) {
+// Hide other top level items
+// TODO items without children are not marked as top level.
+.#{$nav}.#{$openClass} > ul > .#{$item}:not(.#{$breadcrumbClass}) {
   display: none;
 }

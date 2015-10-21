@@ -6,7 +6,7 @@
 }
 
 // Prevent overlap with roots menu button.
-.#{$nav} li.-out-0 > a {
+.#{$nav} .#{$item}.-out-0 > a {
   padding-left: $elementHeight;
 }
 
@@ -18,7 +18,7 @@
   .#{$rootsModifier} {
     display: none;
   }
-  li.-out-0 > a {
+  .#{$item}.-out-0 > a {
     padding-left: $linkPadding;
   }
 }

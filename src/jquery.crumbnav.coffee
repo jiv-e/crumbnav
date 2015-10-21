@@ -36,6 +36,7 @@ $.fn.crumbnav = (options) ->
       'rootClass': 'crumbnav__root',
       'currentClass': 'active'
       'moreMenuClass': 'c-more',
+      'popupClass': 'popup',
       'breadcrumbClass': 'crumbnav-crumb',
       'buttonClass': 'c-button',
       'mainModifier': '-main',
@@ -69,7 +70,7 @@ $.fn.crumbnav = (options) ->
   $moreMenu = $()
   # TODO Should we use a button element?
   $button = $('<span class="'+settings.buttonClass+'"><i></i></span>')
-  $moreMenu = $('<li class="'+settings.moreMenuClass+'"><ul class="'+settings.moreMenuClass+'-popup"></ul></li>').append($button.clone().addClass(settings.moreModifier))
+  $moreMenu = $('<li class="'+settings.moreMenuClass+'"><ul class="'+settings.popupClass+'"></ul></li>').append($button.clone().addClass(settings.moreModifier))
 
   # Add title if not present
   if $nav.children('.'+settings.titleClass).length == 0
@@ -268,4 +269,5 @@ $.fn.crumbnav = (options) ->
   @.makeNav()
   # Call on browser resize
   $(window).on('resize', resizer)
+
   @

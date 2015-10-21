@@ -9,11 +9,11 @@
   .-out-1 > .#{$button} {
     top: 0;
   }
-  li.#{$breadcrumbClass}, li.#{$currentClass} {
+  .#{$item}.#{$breadcrumbClass}, .#{$item}.#{$currentClass} {
     //display: none;
   }
-  li.#{$breadcrumbClass}.#{$openClass},
-  li.#{$breadcrumbClass}.#{$openClass} > ul > li {
+  .#{$item}.#{$breadcrumbClass}.#{$openClass},
+  .#{$item}.#{$breadcrumbClass}.#{$openClass} > ul > .#{$item} {
     display: block;
   }
 

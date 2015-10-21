@@ -10,7 +10,7 @@
   }
   //Prevent overlapping buttons when first contextual item
   //is a parent.
-  .#{$rootClass}.-in-1.#{$openClass} > ul > li:first-child > .#{$parentModifier} {
+  .#{$rootClass}.-in-1.#{$openClass} > ul > .#{$item}:first-child > .#{$parentModifier} {
     right: $elementHeight;
   }
 

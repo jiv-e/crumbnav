@@ -2,6 +2,25 @@
   position: absolute;
   right: 0;
   top: 0;
-}
 
-@import "more-menu-popup";
+ > .#{$popup} {
+    display: none;
+    position: absolute;
+    top: $elementHeight;
+    right: 0;
+    > .#{$item} {
+      display: block;
+    }
+    .#{$button} {
+      display: none;
+    }
+    .#{$openClass} & {
+      display: block;
+    }
+    .#{$breadcrumbClass}.#{$currentClass} > a {
+      // Prevent different width of current class item.
+      float: none;
+    }
+  }
+
+}

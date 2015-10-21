@@ -1,7 +1,0 @@
-.#{$currentClass} a {
-  clear: both;
-  // If large:
-  .#{$largeModifier} & {
-    clear: none;
-  }
-}

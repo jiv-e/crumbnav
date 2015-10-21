@@ -8,18 +8,21 @@ $nav: c-nav;
   $largeModifier: -large;
 
 $moreMenu: c-more;
+  // Elements
+  $popup: popup;
 
 $item: c-item;
   // Modifiers
   $parentModifier: -parent;
+  $topModifier: -top;
 
 $button: c-button;
   // Modifiers
   $mainModifier: -main;
-  $topModifier: -top;
   $moreModifier: -more;
   $rootsModifier: -roots;
   // Uses $parentModifier.
+  // Uses $topModifier.
 
 $parentClass: crumbnav__parent;
 $openClass: cn-open;

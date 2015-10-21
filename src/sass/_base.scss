@@ -4,25 +4,6 @@
   //TODO Make no-js mode better.
 }
 
-
-.#{$breadcrumbClass} {
-  > a {
-    float: left;
-  }
-  &-in-1 > a,
-  &.#{$currentClass} > a {
-    float: none;
-    overflow: hidden;
-    .#{$largeModifier} & {
-      float: left;
-      overflow: visible;
-    }
-    .#{$largeModifier}.#{$openClass} & {
-      float: none;
-    }
-  }
-}
-
 .#{$openClass} {
   > ul > li {
     display: block;
@@ -42,4 +23,8 @@
   &.#{$openClass} .#{$topModifier} {
     display: block;
   }
+}
+
+.#{$nav}.#{$openClass} .#{$topModifier}:not(.#{$breadcrumbClass}) {
+  display: none;
 }

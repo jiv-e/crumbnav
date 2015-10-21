@@ -1,4 +1,4 @@
-.-in-1 > .#{$button} {
+.#{$nav}.#{$rootsClosedClass}.#{$closedClass} .-in-1 > .#{$button} {
   // Show contextual menu button (+) under the menu button (arrow down).
   display: block;
   //Position contextual menu button.

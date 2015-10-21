@@ -78,6 +78,7 @@
 	    'rootClass': 'crumbnav__root',
 	    'currentClass': 'active',
 	    'moreMenuClass': 'c-more',
+	    'popupClass': 'popup',
 	    'breadcrumbClass': 'crumbnav-crumb',
 	    'buttonClass': 'c-button',
 	    'mainModifier': '-main',
@@ -108,7 +109,7 @@
 	  $parentButtons = $();
 	  $moreMenu = $();
 	  $button = $('<span class="' + settings.buttonClass + '"><i></i></span>');
-	  $moreMenu = $('<li class="' + settings.moreMenuClass + '"><ul class="' + settings.moreMenuClass + '-popup"></ul></li>').append($button.clone().addClass(settings.moreModifier));
+	  $moreMenu = $('<li class="' + settings.moreMenuClass + '"><ul class="' + settings.popupClass + '"></ul></li>').append($button.clone().addClass(settings.moreModifier));
 	  if ($nav.children('.' + settings.titleClass).length === 0) {
 	    $nav.prepend('<div class="' + settings.titleClass + '">' + settings.titleText + '</div>');
 	  }

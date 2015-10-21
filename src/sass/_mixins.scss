@@ -117,7 +117,7 @@
   //Second level menu
   > ul > li {
     @if $type != "justified" {
-      position: static;
+      //position: relative;
     }
     display: block;
     flex-grow: 1;
@@ -126,6 +126,7 @@
     > ul {
       @if $type != "justified" {
         position: absolute;
+        top: $elementHeight;
         min-width: 200px;
       }
       clear: both;

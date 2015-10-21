@@ -1,25 +1,20 @@
-.#{$largeModifier}.#{$closedClass} {
-  .-out-0 {
+.#{$largeModifier}.#{$closedClass}.#{$rootsClosedClass} {
+  .-in-1 {
     @include horizontal-flex-menu('left');
   }
 }
 
-.#{$largeModifier}.#{$closedClass} .-in-1.#{$closedClass} {
+.#{$largeModifier}.#{$closedClass}.#{$rootsClosedClass} .-in-1.#{$closedClass} {
   //Prevent horizontal contextual links list from
   //overlapping with the main menu
   padding-right: $elementHeight;
   //Hide current level button
   > .#{$button} {
-    display: none;
+    //display: none;
   }
 
   .js & > ul {
     //Padding preventing overlap with more button
     padding-right: $elementHeight;
   }
-}
-
-// Float breadcrumb items when menu is closed.
-.#{$largeModifier}.#{$closedClass} .#{$breadcrumbClass} > a {
-  float: left;
 }

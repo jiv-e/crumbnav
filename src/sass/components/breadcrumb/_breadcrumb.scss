@@ -1,8 +1,31 @@
+.#{$breadcrumbClass} {
+  &.-in-1 > a,
+  &.#{$currentClass} > a {
+    float: none;
+    //overflow: hidden;
+
+    .#{$largeModifier}.#{$openClass} & {
+      float: none;
+    }
+  }
+}
+
+// Float breadcrumb items when menu is closed.
+.#{$nav}.#{$closedClass} .#{$breadcrumbClass} > a {
+  float: left;
+}
+
+// Don't float breadcrumb items when first level is current or roots are open.
+.#{$nav}.#{$firstLevelClass}.#{$closedClass} .#{$breadcrumbClass} > a,
+.#{$nav}.#{$rootsOpenClass}.#{$closedClass} .#{$breadcrumbClass} > a{
+  float: none;
+}
+
 .#{$breadcrumbClass}.#{$openClass} {
   // TODO Add comments
   // ...Open breadcrumb children?
-  > ul > li {
-    display: block;
+  > ul > .#{$item} {
+    //display: block;
   }
   // Don't float breadcrumb items when item is opened.
   > a {
@@ -11,7 +34,7 @@
 }
 
 // Show breadcrumb elements when the menu is closed.
-.#{$nav}.#{$closedClass} li.#{$breadcrumbClass} {
+.#{$nav}.#{$closedClass}:not(.#{$rootsOpenClass}) .#{$item}.#{$breadcrumbClass} {
   display: block;
   // Hide parent buttons
   > .#{$parentModifier} {
@@ -20,10 +43,10 @@
 }
 
 // Current item siblings
-.-in-1 > ul > li {
+.-in-1 > ul > .#{$item} {
 
   // If large and closed:
-  .#{$largeModifier}.#{$closedClass} & {
+  .#{$largeModifier}.#{$closedClass}:not(.#{$rootsOpenClass}) & {
     display: block;
     float: left;
     > .#{$parentModifier} {
@@ -34,10 +57,7 @@
 }
 
 
-// Don't float breadcrumb items when first level is current.
-.#{$firstLevelClass}.#{$closedClass} .#{$breadcrumbClass} > a {
-  float: none;
-}
+
 
 // Make breadcrumb links clickable.
 .-out-0 > a {z-index: 5;}

@@ -1,15 +1,29 @@
-.#{$nav} {
-  li {
-    min-height: $elementHeight;
-    line-height: $elementHeight;
-  }
-  li > a {
+.#{$item} {
+  min-height: $elementHeight;
+  line-height: $elementHeight;
+  > a {
     position: relative;
     display: block;
     white-space: nowrap;
   }
-}
 
-@import "item--current";
-@import "item--top-parent";
-@import "item--parent";
+  &.#{$parentModifier} {
+    position: relative;
+  }
+
+  &.#{$topModifier} {
+    position: relative;
+
+    .#{$openClass}:not(.#{$nav}.-length-0) > ul > &:not(.#{$breadcrumbClass}) {
+      display: none;
+    }
+  }
+
+  &.#{$currentClass} a {
+    clear: both;
+    // If large:
+    .#{$largeModifier} & {
+      clear: none;
+    }
+  }
+}

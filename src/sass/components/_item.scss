@@ -1,4 +1,4 @@
-.#{$navClass} {
+.#{$nav} {
   li {
     min-height: $elementHeight;
     line-height: $elementHeight;
@@ -10,4 +10,6 @@
   }
 }
 
+@import "item--current";
 @import "item--top-parent";
+@import "item--parent";

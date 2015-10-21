@@ -1,13 +1,25 @@
-.#{$buttonRootsMenuClass} {
+.#{$rootsModifier} {
   display: block;
   height: $elementHeight;
   left: 0;
   right: inherit;
-  .#{$largeClass} & {
+}
+
+// Prevent overlap with roots menu button.
+.#{$nav} li.-out-0 > a {
+  padding-left: $elementHeight;
+}
+
+// Hide roots menu button on 0 and 1 length breadcrumbs.
+.#{$nav}.-length-0,
+.#{$nav}.-length-0.#{$openClass},
+.#{$largeModifier}.#{$nav}.-length-1,
+.#{$largeModifier}.#{$nav}.-length-1.#{$openClass} {
+  .#{$rootsModifier} {
     display: none;
   }
-  .#{$navClass}-length-0 &,
-  .#{$navClass}-length-0.#{$openClass} &{
-    display: none;
+  li.-out-0 > a {
+    padding-left: $linkPadding;
   }
 }
+

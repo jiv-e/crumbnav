@@ -1,25 +1,35 @@
 //SELECTORS
-$navClass: crumbnav;
-$navTitleClass: crumbnav__title;
-$topParentClass: crumbnav__top-parent;
+
+//Components
+$nav: c-nav;
+  // Elements
+  $title: title;
+  // Modifiers
+  $largeModifier: -large;
+
+$moreMenu: c-more;
+
+$item: c-item;
+  // Modifiers
+  $parentModifier: -parent;
+
+$button: c-button;
+  // Modifiers
+  $mainModifier: -main;
+  $topModifier: -top;
+  $moreModifier: -more;
+  $rootsModifier: -roots;
+  // Uses $parentModifier.
+
 $parentClass: crumbnav__parent;
-$moreMenuClass: crumbnav__more-menu;
 $openClass: cn-open;
 $closedClass: cn-close;
 $currentClass: active;
 $firstLevelClass: crumbnav--first-level;
 $rootClass: crumbnav__root;
 $breadcrumbClass: crumbnav-crumb;
-$buttonClass: crumbnav__button;
-$buttonMenuClass: crumbnav__button--menu;
-$buttonMoreMenuClass: crumbnav__button--more-menu;
-$buttonParentClass: crumbnav__button--parent;
-$buttonTopParentClass: crumbnav__button--top-parent;
-$buttonRootsMenuClass: crumbnav__button--root-menu;
-$multipleRootsClass: crumbnav--multiple-roots;
 $rootsOpenClass: cn-open-roots;
 $rootsClosedClass: cn-close-roots;
-$largeClass: crumbnav--large;
 
 //COLORS
 $navTextColor: #eeeeee;
@@ -37,3 +47,4 @@ $breadcrumbArrowColor: $arrowbuttonColor;
 $elementHeight: 50px;
 $borderWidth: 1px;
 $indent: 15px;
+$linkPadding: 1em;

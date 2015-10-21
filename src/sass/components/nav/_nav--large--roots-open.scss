@@ -1,0 +1,12 @@
+.#{$nav}.#{$rootsOpenClass} {
+  .#{$currentClass}.-out-0 {
+    display: block;
+  }
+}
+.#{$nav} .#{$rootsOpenClass} {
+  display: block;
+  //TODO Refactor?
+  &.#{$parentClass}.#{$breadcrumbClass} > a {
+    float: none;
+  }
+}

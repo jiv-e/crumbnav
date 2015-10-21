@@ -24,10 +24,10 @@ $ ->
 
 $.fn.crumbnav = (options) ->
   settings = $.extend({
-      'navClass': 'crumbnav',
-      'navTitleClass': 'crumbnav__title',
-      'topParentClass': 'crumbnav__top-parent',
-      'parentClass': 'crumbnav__parent',
+      'navClass': 'c-nav',
+      'titleClass': 'title',
+      'topModifier': '-top',
+      'itemClass': 'c-item',
       'openClass': 'cn-open',
       'closedClass': 'cn-close',
       'rootsOpenClass': 'cn-open-roots',
@@ -35,21 +35,19 @@ $.fn.crumbnav = (options) ->
       'firstLevelClass': 'crumbnav--first-level',
       'rootClass': 'crumbnav__root',
       'currentClass': 'active'
-      'moreMenuClass': 'crumbnav__more-menu',
+      'moreMenuClass': 'c-more',
       'breadcrumbClass': 'crumbnav-crumb',
-      'buttonClass': 'crumbnav__button',
-      'buttonTopParentClass': 'crumbnav__button--top-parent',
-      'buttonParentClass': 'crumbnav__button--parent',
-      'buttonMenuClass': 'crumbnav__button--menu',
-      'buttonMoreMenuClass': 'crumbnav__button--more-menu',
-      'buttonRootsMenuClass': 'crumbnav__button--root-menu',
-      'multipleRootsClass': 'crumbnav--multiple-roots',
-      'largeClass': 'crumbnav--large',
+      'buttonClass': 'c-button',
+      'mainModifier': '-main',
+      'parentModifier': '-parent',
+      'moreModifier': '-more',
+      'rootsModifier': '-roots',
+      'largeModifier': '-large',
       'hoverIntent': false,
       'hoverIntentTimeout': 150,
       'calcItemWidths': false,
       'hover': false,
-      'menuText': 'Menu',
+      'titleText': 'Menu',
     },
     options
   )
@@ -61,21 +59,21 @@ $.fn.crumbnav = (options) ->
   $current = $('li.'+settings.currentClass, $navUl)
   if $current.length > 1 then alert('Multiple active elements in the menu! There should be only one.')
   $root = $()
-  $current = $()
   $topParents = $()
   $parents = $()
   $breadcrumb = $()
+  $breadcrumbLength = 0
   $currentChildMenu = $()
   $topParentButtons = $()
   $parentButtons = $()
   $moreMenu = $()
   # TODO Should we use a button element?
   $button = $('<span class="'+settings.buttonClass+'"><i></i></span>')
-  $moreMenu = $('<li class="'+settings.moreMenuClass+'"><ul class="'+settings.moreMenuClass+'__popup"></ul></li>').append($button.clone().addClass(settings.buttonMoreMenuClass))
+  $moreMenu = $('<li class="'+settings.moreMenuClass+'"><ul class="'+settings.moreMenuClass+'-popup"></ul></li>').append($button.clone().addClass(settings.moreModifier))
 
   # Add title if not present
-  if $nav.children('.'+settings.navTitleClass).length == 0
-    $nav.prepend('<div class="'+settings.navTitleClass+'">'+settings.menuText+'</div>')
+  if $nav.children('.'+settings.titleClass).length == 0
+    $nav.prepend('<div class="'+settings.titleClass+'">'+settings.titleText+'</div>')
 
   addBreadcrumbClasses = ->
     # Breadcrumb trail
@@ -85,10 +83,10 @@ $.fn.crumbnav = (options) ->
     $breadcrumb
     .addClass(settings.breadcrumbClass)
     .each (index) ->
-      $(@).addClass(settings.breadcrumbClass+'-out-'+index+' '+settings.breadcrumbClass+'-in-'+($breadcrumbLength - index - 1))
+      $(@).addClass('-out-'+index+' -in-'+($breadcrumbLength - index - 1))
 
-    # Breadcrumb length class.
-    $nav.addClass(settings.navClass+'-length-'+$breadcrumbLength);
+    # Breadcrumb length modifier class.
+    $nav.addClass('-length-'+$breadcrumbLength);
 
     # Root class
     # If current element exists and is not top level item.
@@ -96,34 +94,40 @@ $.fn.crumbnav = (options) ->
     then $root = $navUl.children('.'+settings.breadcrumbClass).addClass(settings.rootClass)
     else $root = $nav.addClass(settings.firstLevelClass)
 
+  # Set item classes in the markup
+  addItemClasses = ->
+    $navUl.find("li").addClass(settings.itemClass)
+
   # Set parent classes in the markup
   addParentClasses = ->
     $navUl.find(">li").each ->
       if $(@).has("ul").length
-        $(@).addClass(settings.topParentClass)
+        $(@).addClass(settings.topModifier)
         $topParents = $topParents.add($(@))
     $navUl.find("ul li").each ->
       if $(@).has("ul").length
-        $(@).addClass(settings.parentClass)
+        $(@).addClass(settings.parentModifier)
         $parents = $parents.add($(@))
 
   # Add in touch buttons
   addButtons = ->
     if $navUl.children('li').length > 1
       $nav.addClass(settings.multipleRootsClass)
-    $navUl.before($button.clone().addClass(settings.buttonRootsMenuClass))
-    $navUl.after($button.clone().addClass(settings.buttonMenuClass))
-    $topParentButtons = $button.clone().addClass(settings.buttonTopParentClass).appendTo($topParents)
-    $parentButtons = $button.clone().addClass(settings.buttonParentClass).appendTo($parents)
+    $navUl.before($button.clone().addClass(settings.rootsModifier))
+    $navUl.after($button.clone().addClass(settings.mainModifier))
+    $topParentButtons = $button.clone().addClass(settings.topModifier).appendTo($topParents)
+    $parentButtons = $button.clone().addClass(settings.parentModifier).appendTo($parents)
 
   getCloseElements = ->
     $nav.add($parents).add($topParents)
   getOpenElements = ->
-    $nav.add($breadcrumb)
+    if $breadcrumbLength = 1
+    then $nav.add($breadcrumb)
+    else $nav.add($breadcrumb).not($current)
 
   closeMenu = ->
     close(getCloseElements())
-    if $nav.hasClass(settings.largeClass)
+    if $nav.hasClass(settings.largeModifier)
       addMoreMenu()
       calcWidth()
 
@@ -140,11 +144,11 @@ $.fn.crumbnav = (options) ->
   openRootsMenu = ->
     $nav.removeClass(settings.rootsClosedClass).addClass(settings.rootsOpenClass)
     .children('ul').children('li').removeClass(settings.rootsClosedClass).addClass(settings.rootsOpenClass)
-    $nav.children('.'+settings.buttonRootsMenuClass).removeClass(settings.rootsClosedClass).addClass(settings.rootsOpenClass)
+    $nav.children('.'+settings.rootsModifier).removeClass(settings.rootsClosedClass).addClass(settings.rootsOpenClass)
 
   addListeners = ->
     # Toggle touch for nav menu
-    $('> .'+settings.buttonMenuClass, $nav).on('click', (e) ->
+    $('> .'+settings.mainModifier, $nav).on('click', (e) ->
       e.stopPropagation()
       e.preventDefault()
       if $nav.hasClass(settings.openClass)
@@ -169,7 +173,6 @@ $.fn.crumbnav = (options) ->
     $parentButtons.on('click', (e) ->
       e.stopPropagation()
       e.preventDefault()
-      # remove openClass from all elements that are not current
       $parent = $(@).parent('li')
       if $parent.hasClass(settings.openClass)
         close($parent)
@@ -177,7 +180,7 @@ $.fn.crumbnav = (options) ->
         open($parent)
     )
     # Toggle moreMenu
-    $('.'+settings.buttonMoreMenuClass,$moreMenu).click((e) ->
+    $('.'+settings.moreModifier,$moreMenu).click((e) ->
       e.stopPropagation()
       e.preventDefault()
       if $moreMenu.hasClass(settings.openClass)
@@ -187,7 +190,7 @@ $.fn.crumbnav = (options) ->
     )
 
     # Toggle touch for roots menu
-    $nav.children('.'+settings.buttonRootsMenuClass).on('click', (e) ->
+    $nav.children('.'+settings.rootsModifier).on('click', (e) ->
       e.stopPropagation()
       e.preventDefault()
       if $nav.hasClass(settings.rootsOpenClass) is true
@@ -239,12 +242,12 @@ $.fn.crumbnav = (options) ->
 
   resizer = ->
     if $(window).width() <= breakpoint
-      $nav.removeClass(settings.largeClass)
+      $nav.removeClass(settings.largeModifier)
       closeMenu()
       if $.contains(document.documentElement, $moreMenu[0])
         removeMoreMenu()
     else
-      $nav.addClass(settings.largeClass)
+      $nav.addClass(settings.largeModifier)
       closeMenu()
       if not $.contains(document.documentElement, $moreMenu[0])
         addMoreMenu()
@@ -252,6 +255,7 @@ $.fn.crumbnav = (options) ->
 
   @.makeNav = ->
     $current = $('li.'+settings.currentClass, $navUl)
+    addItemClasses()
     addParentClasses()
     addBreadcrumbClasses()
     addButtons()

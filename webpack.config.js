@@ -46,6 +46,9 @@ module.exports = {
     )
   ],
   watchOptions: {
-    poll: true
+    // See http://reactunicorn.com/webpack-watch-in-vagrant-docker/
+    // and http://www.wolfe.id.au/2015/08/08/development-with-webpack-and-docker/
+    poll: 1000,
+    aggregateTimeout: 1000
   }
 }

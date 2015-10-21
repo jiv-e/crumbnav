@@ -1,9 +1,9 @@
-.#{$buttonClass}.#{$buttonTopParentClass} {
+.#{$button}.#{$topModifier} {
   display: block;
-  .#{$largeClass} &,
-  .#{$breadcrumbClass}-out-0 & {
+  .#{$largeModifier} &,
+  .-out-0 & {
     display: none;
-    .#{$rootsOpenClass}:not(.#{$largeClass}) & {
+    .#{$rootsOpenClass}:not(.#{$largeModifier}) & {
       display: block;
     }
   }

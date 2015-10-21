@@ -2,16 +2,16 @@
 @import "mixins";
 
 // Basic link styles
-.#{$navClass} li > a {
-  padding: 0 1em;
+.#{$nav} li > a {
+  padding: 0 $linkPadding;
   color: $navTextColor;
   border-bottom: $borderWidth solid rgba(0, 0, 0, .15);
 }
-.#{$navClass}.#{$largeClass} li > a {
+.#{$nav}.#{$largeModifier} li > a {
   border: none;
 }
 
-.#{$navClass} {
+.#{$nav} {
   > ul {
     margin: 0;
   }
@@ -21,28 +21,28 @@
     font-weight: bold;
   }
   ul a,
-  .#{$rootClass}.#{$breadcrumbClass}-in-0 {
+  .#{$rootClass}.-in-0 {
     background: $firstLevelColor;
   }
   ul ul a,
-  .#{$rootClass}.#{$breadcrumbClass}-in-1 {
+  .#{$rootClass}.-in-1 {
     background: $secondLevelColor;
   }
   ul ul ul a,
-  .#{$rootClass}.#{$breadcrumbClass}-in-2 {
+  .#{$rootClass}.-in-2 {
     background: $thirdLevelColor;
   }
   ul ul ul ul a,
-  .#{$rootClass}.#{$breadcrumbClass}-in-3 {
+  .#{$rootClass}.-in-3 {
     background: $fourthLevelColor;
   }
   ul ul ul ul ul a,
-  .#{$rootClass}.#{$breadcrumbClass}-in-4 {
+  .#{$rootClass}.-in-4 {
     background: $fifthLevelColor;
   }
 }
 
-.#{$navTitleClass} {
+.#{$title} {
   background-color: $firstLevelColor;
   color: $navTextColor;
 }
@@ -53,16 +53,16 @@
     @include triangle-outer(right, red, 10px);
     z-index: 1;
   }
-  &.#{$breadcrumbClass}-out-0 > a:after {
+  &.-out-0 > a:after {
     border-left-color: $firstLevelColor;
   }
-  &.#{$breadcrumbClass}-out-1 > a:after {
+  &.-out-1 > a:after {
     border-left-color: $secondLevelColor;
   }
-  &.#{$breadcrumbClass}-out-2 > a:after {
+  &.-out-2 > a:after {
     border-left-color: $thirdLevelColor;
   }
-  &.#{$breadcrumbClass}-out-3 > a:after {
+  &.-out-3 > a:after {
     border-left-color: $fourthLevelColor;
   }
   &.#{$currentClass} > a:after {
@@ -70,11 +70,11 @@
   }
 }
 
-.#{$openClass}.#{$multipleRootsClass} .#{$breadcrumbClass}-in-0 > a {
+.#{$openClass} .-in-0 > a {
   padding-left: $elementHeight;
 }
 
-.#{$navClass} .#{$rootsOpenClass} {
+.#{$nav} .#{$rootsOpenClass} {
   > a {
    padding-left: $elementHeight;
   }
@@ -85,7 +85,7 @@
 
 
 //Submenu open only
-.#{$breadcrumbClass}.#{$openClass} {
+/*.#{$breadcrumbClass}.#{$openClass} {
   ul li > a {
     padding-left: $indent*2;
   }
@@ -98,30 +98,18 @@
   ul ul ul ul > li > a {
     padding-left: $indent*5;
   }
-}
+}*/
 
 
 //Menu open
-.#{$navClass}.#{$openClass} {
+.#{$nav}.#{$openClass} {
 
-  ul li > a {
-    padding-left: $indent*2;
-  }
-  ul ul li > a {
-    padding-left: $indent*3;
-  }
-  ul ul ul > li > a {
-    padding-left: $indent*4;
-  }
-  ul ul ul ul > li > a {
-    padding-left: $indent*5;
-  }
   //Remove right side triangles from open menu
   .#{$breadcrumbClass} > a:after{
     border: none;
   }
   //Open menu style breadcrumb trail indicators
-  .#{$breadcrumbClass}:not(.#{$breadcrumbClass}-out-0) {
+  .#{$breadcrumbClass}:not(.-out-0) {
     &:after {
       @include triangle-inner(top, $breadcrumbArrowColor, 10px);
       z-index: 100;
@@ -130,7 +118,7 @@
 }
 
 //Multiroot menu open
-.#{$navClass}.#{$multipleRootsClass}.#{$rootsOpenClass} {
+.#{$nav}.#{$rootsOpenClass} {
   //TODO Refactor: dublicate code
   //Remove right side triangles from open menu
   .#{$breadcrumbClass} > a:after{
@@ -138,12 +126,15 @@
   }
 }
 
-//Submenu open with multiroot
-.#{$navClass}.#{$multipleRootsClass} .#{$breadcrumbClass}.#{$openClass} {
+.#{$nav}:not(.#{$largeModifier}) .#{$topModifier} {
+
+  > a {
+    padding-left: $elementHeight;
+  }
   ul li > a {
     padding-left: $indent*1 + $elementHeight;
   }
-  ul ul li > a {
+  ul ul > li > a {
     padding-left: $indent*2 + $elementHeight;
   }
   ul ul ul > li > a {
@@ -152,12 +143,9 @@
   ul ul ul ul > li > a {
     padding-left: $indent*4 + $elementHeight;
   }
-  ul ul ul ul ul > li > a {
-    padding-left: $indent*5 + $elementHeight;
-  }
 }
 
-.#{$buttonClass} {
+.#{$button} {
   background: #acaca1;
   background: rgba(0,0,0,.075);
   text-align: center;
@@ -167,22 +155,22 @@
   }
 }
 
-.#{$buttonMenuClass} > i {
+.#{$mainModifier} > i {
   @include triangle-center(bottom, $arrowbuttonColor, 10px);
 }
-.#{$buttonMenuClass}.#{$openClass} > i {
+.#{$mainModifier}.#{$openClass} > i {
   @include triangle-center(top, $arrowbuttonColor, 10px);
 }
-.#{$buttonRootsMenuClass} > i {
+.#{$rootsModifier} > i {
   @include triangle-center(left, $arrowbuttonColor, 10px);
 }
-.#{$buttonRootsMenuClass}.#{$rootsOpenClass} > i {
+.#{$rootsModifier}.#{$rootsOpenClass} > i {
   @include triangle-center(right, $arrowbuttonColor, 10px);
 }
 
-.#{$buttonParentClass},
-.#{$buttonTopParentClass},
-.#{$buttonMoreMenuClass} {
+.#{$button}.#{$parentModifier},
+.#{$button}.#{$topModifier},
+.#{$button}.#{$moreModifier} {
   background: #acaca1;
   background: rgba(0,0,0,.075);
   text-align: center;
@@ -200,7 +188,7 @@
 }
 
 @media (max-width: 600px) {
-  .#{$firstLevelClass}.#{$largeClass} {
+  .#{$firstLevelClass}.#{$largeModifier} {
     > ul > li {
       position: static;
     }

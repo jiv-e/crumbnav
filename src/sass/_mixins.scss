@@ -105,3 +105,50 @@
     -moz-box-sizing: $model; -webkit-box-sizing: $model; box-sizing: $model;
   }
 }
+
+@mixin horizontal-flex-menu($type:"justified") {
+  //Top level menu
+  > ul {
+    @if $type == "justified" {
+      display: flex;
+      justify-content: space-around;
+    }
+  }
+  //Second level menu
+  > ul > li {
+    @if $type != "justified" {
+      position: static;
+    }
+    display: block;
+    flex-grow: 1;
+    flex-basis: 0;
+    text-align: center;
+    > ul {
+      @if $type != "justified" {
+        position: absolute;
+        min-width: 200px;
+      }
+      clear: both;
+      display: none;
+      flex-direction: column;
+      justify-content: flex-start;
+      > li {
+        @if $type != "justified" {
+          position: relative;
+        }
+        text-align: left;
+        display: block;
+        .#{$button} {
+          display: block;
+        }
+      }
+    }
+
+    &:hover > ul {
+      display: flex;
+    }
+  }
+  .#{$mainModifier} {
+    display: none;
+  }
+}

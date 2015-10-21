@@ -4,120 +4,8 @@
   //TODO Make no-js mode better.
 }
 
-.#{$navClass} {
-  position: relative;
-  &.#{$rootsOpenClass} {
-    .#{$currentClass} {
-      .js & {
-        display: none;
-      }
-    }
-    .#{$currentClass}.#{$breadcrumbClass}-out-0 {
-      display: block;
-    }
-  }
-  .#{$rootsOpenClass} {
-    display: block;
-    //TODO Refactor?
-    &.#{$parentClass}.#{$breadcrumbClass} > a {
-      float: none;
-    }
-  }
 
-  ul {
-    position: relative;
-    list-style: none;
-    padding: 0 0 0 2em;
-    .js & {
-      padding: 0;
-    }
-  }
-}
-.#{$topParentClass},
-.#{$parentClass} {
-  position: relative;
-}
-
-.#{$moreMenuClass} {
-  position: absolute;
-  right: 0;
-  top: 0;
-}
-.#{$moreMenuClass}__popup {
-  display: none;
-  position: absolute;
-  top: $elementHeight;
-  right: 0;
-  > li {
-    display: block;
-  }
-  .#{$buttonClass} {
-    display: none;
-  }
-  .#{$openClass} & {
-    display: block;
-  }
-}
-
-// Current item
-.#{$currentClass} a {
-  clear: both;
-  // If large:
-  .#{$largeClass} & {
-    clear: none;
-  }
-}
-
-.#{$largeClass}.#{$closedClass} .#{$breadcrumbClass}-in-1.#{$closedClass} {
-  //Prevent horizontal contextual links list from
-  //overlapping with the main menu
-  padding-right: $elementHeight;
-  //Hide current level button
-  > .#{$buttonClass} {
-    display: none;
-  }
-
-  .js & > ul {
-    //Padding preventing overlap with more button
-    padding-right: $elementHeight;
-  }
-}
-
-
-
-// Menu open
-.#{$navClass}.#{$openClass} {
-
-  .#{$buttonClass} {
-    display: block;
-  }
-  .#{$breadcrumbClass} > a {
-    float: none;
-  }
-  .#{$breadcrumbClass}-out-1 > .#{$buttonClass} {
-    top: 0;
-  }
-  li.#{$breadcrumbClass}, li.#{$currentClass} {
-    display: none;
-  }
-  li.#{$breadcrumbClass}.#{$openClass},
-  li.#{$breadcrumbClass}.#{$openClass} > ul > li,
-  li.#{$currentClass}.#{$openClass}{
-    display: block;
-  }
-
-  .#{$breadcrumbClass}-in-1 > .#{$buttonClass} {
-    top: 0;
-  }
-}
-
-.#{$breadcrumbClass}#{$openClass} {
-  > ul > li {
-    display: block;
-  }
-}
-
-.#{$parentClass}.#{$breadcrumbClass} {
+.#{$breadcrumbClass} {
   > a {
     float: left;
   }
@@ -125,21 +13,16 @@
   &.#{$currentClass} > a {
     float: none;
     overflow: hidden;
-    .#{$largeClass} & {
+    .#{$largeModifier} & {
       float: left;
       overflow: visible;
     }
-    .#{$largeClass}.#{$openClass} & {
+    .#{$largeModifier}.#{$openClass} & {
       float: none;
     }
   }
 }
 
-.#{$breadcrumbClass}.#{$openClass} {
-  > a {
-    float: none;
-  }
-}
 .#{$openClass} {
   > ul > li {
     display: block;
@@ -152,67 +35,11 @@
   }
 }
 
-.#{$buttonMoreMenuClass} {
-  display: block;
-}
-
-.js .#{$firstLevelClass}.#{$largeClass} {
-  //Top level menu
-  > ul {
-    display: flex;
-    justify-content: space-around;
-  }
-  //Second level menu
-  > ul > li {
-    display: block;
-    flex-grow: 1;
-    flex-basis: 0;
-    text-align: center;
-    > ul {
-      display: none;
-      flex-direction: column;
-      justify-content: flex-start;
-      > li {
-        text-align: left;
-        display: block;
-        .#{$buttonClass} {
-          display: block;
-        }
-      }
-    }
-
-    &:hover > ul {
-      display: flex;
-    }
-  }
-  .#{$buttonMenuClass} {
-    display: none;
-  }
-}
-
 .#{$firstLevelClass}.#{$breadcrumbClass}-length-0 {
-  .#{$navTitleClass} {
+  .#{$title} {
     display: block;
   }
-  &.#{$openClass} .#{$topParentClass} {
+  &.#{$openClass} .#{$topModifier} {
     display: block;
   }
-}
-
-.#{$navClass}.#{$closedClass} {
-  //Second level context menu button
-  .#{$rootClass}.#{$breadcrumbClass}-in-1 > .#{$buttonClass} {
-    display: block;
-    top: $elementHeight;
-  }
-  //...but not if menu is large.
-  &.#{$largeClass} .#{$rootClass}.#{$breadcrumbClass}-in-1 > .#{$buttonClass} {
-    display: none;
-  }
-  //Prevent overlapping buttons when first contextual item
-  //is a parent.
-  .#{$rootClass}.#{$breadcrumbClass}-in-1.#{$openClass} > ul > li:first-child > .#{$buttonParentClass} {
-    right: $elementHeight;
-  }
-
 }

@@ -61,7 +61,7 @@
 	    $nav.removeClass();
 	    $nav.find('*').removeClass();
 	    $nav.addClass($nav.options.navClass);
-	    $nav.find('> div').addClass($nav.options.navTitleClass);
+	    $nav.find('> div').addClass($nav.options.titleClass);
 	    $(e.target).parent('li').addClass($nav.options.currentClass);
 	    $nav.makeNav();
 	    $('a').on('click', $nav.clickHandler);

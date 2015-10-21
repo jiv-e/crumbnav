@@ -1,0 +1,17 @@
+.#{$nav}.#{$closedClass} {
+  //Second level context menu button
+  .#{$rootClass}.-in-1 > .#{$button} {
+    display: block;
+    top: $elementHeight;
+  }
+  //...but not if menu is large.
+  &.#{$largeModifier} .#{$rootClass}.-in-1 > .#{$button} {
+    display: none;
+  }
+  //Prevent overlapping buttons when first contextual item
+  //is a parent.
+  .#{$rootClass}.-in-1.#{$openClass} > ul > li:first-child > .#{$parentModifier} {
+    right: $elementHeight;
+  }
+
+}

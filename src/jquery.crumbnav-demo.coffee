@@ -16,7 +16,7 @@ $.fn.crumbnavDemo = (options) ->
     $nav.find('*').removeClass()
     # Add classes
     $nav.addClass($nav.options.navClass)
-    $nav.find('> div').addClass($nav.options.navTitleClass)
+    $nav.find('> div').addClass($nav.options.titleClass)
     $(e.target).parent('li').addClass($nav.options.currentClass)
     $nav.makeNav()
     $('a').on('click', $nav.clickHandler)

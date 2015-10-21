@@ -64,12 +64,12 @@
 	$(function() {});
 
 	$.fn.crumbnav = function(options) {
-	  var $breadcrumb, $button, $current, $currentChildMenu, $moreMenu, $nav, $navUl, $parentButtons, $parents, $root, $topParentButtons, $topParents, addBreadcrumbClasses, addButtons, addListeners, addMoreMenu, addParentClasses, breakpoint, calcWidth, close, closeMenu, closeRootsMenu, getCloseElements, getOpenElements, open, openMenu, openRootsMenu, removeMoreMenu, resizer, settings;
+	  var $breadcrumb, $breadcrumbLength, $button, $current, $currentChildMenu, $moreMenu, $nav, $navUl, $parentButtons, $parents, $root, $topParentButtons, $topParents, addBreadcrumbClasses, addButtons, addItemClasses, addListeners, addMoreMenu, addParentClasses, breakpoint, calcWidth, close, closeMenu, closeRootsMenu, getCloseElements, getOpenElements, open, openMenu, openRootsMenu, removeMoreMenu, resizer, settings;
 	  settings = $.extend({
-	    'navClass': 'crumbnav',
-	    'navTitleClass': 'crumbnav__title',
-	    'topParentClass': 'crumbnav__top-parent',
-	    'parentClass': 'crumbnav__parent',
+	    'navClass': 'c-nav',
+	    'titleClass': 'title',
+	    'topModifier': '-top',
+	    'itemClass': 'c-item',
 	    'openClass': 'cn-open',
 	    'closedClass': 'cn-close',
 	    'rootsOpenClass': 'cn-open-roots',
@@ -77,21 +77,19 @@
 	    'firstLevelClass': 'crumbnav--first-level',
 	    'rootClass': 'crumbnav__root',
 	    'currentClass': 'active',
-	    'moreMenuClass': 'crumbnav__more-menu',
+	    'moreMenuClass': 'c-more',
 	    'breadcrumbClass': 'crumbnav-crumb',
-	    'buttonClass': 'crumbnav__button',
-	    'buttonTopParentClass': 'crumbnav__button--top-parent',
-	    'buttonParentClass': 'crumbnav__button--parent',
-	    'buttonMenuClass': 'crumbnav__button--menu',
-	    'buttonMoreMenuClass': 'crumbnav__button--more-menu',
-	    'buttonRootsMenuClass': 'crumbnav__button--root-menu',
-	    'multipleRootsClass': 'crumbnav--multiple-roots',
-	    'largeClass': 'crumbnav--large',
+	    'buttonClass': 'c-button',
+	    'mainModifier': '-main',
+	    'parentModifier': '-parent',
+	    'moreModifier': '-more',
+	    'rootsModifier': '-roots',
+	    'largeModifier': '-large',
 	    'hoverIntent': false,
 	    'hoverIntentTimeout': 150,
 	    'calcItemWidths': false,
 	    'hover': false,
-	    'menuText': 'Menu'
+	    'titleText': 'Menu'
 	  }, options);
 	  this.options = settings;
 	  $nav = $(this);
@@ -101,44 +99,47 @@
 	    alert('Multiple active elements in the menu! There should be only one.');
 	  }
 	  $root = $();
-	  $current = $();
 	  $topParents = $();
 	  $parents = $();
 	  $breadcrumb = $();
+	  $breadcrumbLength = 0;
 	  $currentChildMenu = $();
 	  $topParentButtons = $();
 	  $parentButtons = $();
 	  $moreMenu = $();
 	  $button = $('<span class="' + settings.buttonClass + '"><i></i></span>');
-	  $moreMenu = $('<li class="' + settings.moreMenuClass + '"><ul class="' + settings.moreMenuClass + '__popup"></ul></li>').append($button.clone().addClass(settings.buttonMoreMenuClass));
-	  if ($nav.children('.' + settings.navTitleClass).length === 0) {
-	    $nav.prepend('<div class="' + settings.navTitleClass + '">' + settings.menuText + '</div>');
+	  $moreMenu = $('<li class="' + settings.moreMenuClass + '"><ul class="' + settings.moreMenuClass + '-popup"></ul></li>').append($button.clone().addClass(settings.moreModifier));
+	  if ($nav.children('.' + settings.titleClass).length === 0) {
+	    $nav.prepend('<div class="' + settings.titleClass + '">' + settings.titleText + '</div>');
 	  }
 	  addBreadcrumbClasses = function() {
-	    var $breadcrumbLength, $currentParents;
+	    var $currentParents;
 	    $currentParents = $current.parentsUntil($navUl, 'li');
 	    $breadcrumb = $currentParents.add($current);
 	    $breadcrumbLength = $breadcrumb.length;
 	    $breadcrumb.addClass(settings.breadcrumbClass).each(function(index) {
-	      return $(this).addClass(settings.breadcrumbClass + '-out-' + index + ' ' + settings.breadcrumbClass + '-in-' + ($breadcrumbLength - index - 1));
+	      return $(this).addClass('-out-' + index + ' -in-' + ($breadcrumbLength - index - 1));
 	    });
-	    $nav.addClass(settings.navClass + '-length-' + $breadcrumbLength);
+	    $nav.addClass('-length-' + $breadcrumbLength);
 	    if ($current.length && $breadcrumbLength > 1) {
 	      return $root = $navUl.children('.' + settings.breadcrumbClass).addClass(settings.rootClass);
 	    } else {
 	      return $root = $nav.addClass(settings.firstLevelClass);
 	    }
 	  };
+	  addItemClasses = function() {
+	    return $navUl.find("li").addClass(settings.itemClass);
+	  };
 	  addParentClasses = function() {
 	    $navUl.find(">li").each(function() {
 	      if ($(this).has("ul").length) {
-	        $(this).addClass(settings.topParentClass);
+	        $(this).addClass(settings.topModifier);
 	        return $topParents = $topParents.add($(this));
 	      }
 	    });
 	    return $navUl.find("ul li").each(function() {
 	      if ($(this).has("ul").length) {
-	        $(this).addClass(settings.parentClass);
+	        $(this).addClass(settings.parentModifier);
 	        return $parents = $parents.add($(this));
 	      }
 	    });
@@ -147,20 +148,24 @@
 	    if ($navUl.children('li').length > 1) {
 	      $nav.addClass(settings.multipleRootsClass);
 	    }
-	    $navUl.before($button.clone().addClass(settings.buttonRootsMenuClass));
-	    $navUl.after($button.clone().addClass(settings.buttonMenuClass));
-	    $topParentButtons = $button.clone().addClass(settings.buttonTopParentClass).appendTo($topParents);
-	    return $parentButtons = $button.clone().addClass(settings.buttonParentClass).appendTo($parents);
+	    $navUl.before($button.clone().addClass(settings.rootsModifier));
+	    $navUl.after($button.clone().addClass(settings.mainModifier));
+	    $topParentButtons = $button.clone().addClass(settings.topModifier).appendTo($topParents);
+	    return $parentButtons = $button.clone().addClass(settings.parentModifier).appendTo($parents);
 	  };
 	  getCloseElements = function() {
 	    return $nav.add($parents).add($topParents);
 	  };
 	  getOpenElements = function() {
-	    return $nav.add($breadcrumb);
+	    if ($breadcrumbLength = 1) {
+	      return $nav.add($breadcrumb);
+	    } else {
+	      return $nav.add($breadcrumb).not($current);
+	    }
 	  };
 	  closeMenu = function() {
 	    close(getCloseElements());
-	    if ($nav.hasClass(settings.largeClass)) {
+	    if ($nav.hasClass(settings.largeModifier)) {
 	      addMoreMenu();
 	      return calcWidth();
 	    }
@@ -181,10 +186,10 @@
 	  };
 	  openRootsMenu = function() {
 	    $nav.removeClass(settings.rootsClosedClass).addClass(settings.rootsOpenClass).children('ul').children('li').removeClass(settings.rootsClosedClass).addClass(settings.rootsOpenClass);
-	    return $nav.children('.' + settings.buttonRootsMenuClass).removeClass(settings.rootsClosedClass).addClass(settings.rootsOpenClass);
+	    return $nav.children('.' + settings.rootsModifier).removeClass(settings.rootsClosedClass).addClass(settings.rootsOpenClass);
 	  };
 	  addListeners = function() {
-	    $('> .' + settings.buttonMenuClass, $nav).on('click', function(e) {
+	    $('> .' + settings.mainModifier, $nav).on('click', function(e) {
 	      e.stopPropagation();
 	      e.preventDefault();
 	      if ($nav.hasClass(settings.openClass)) {
@@ -217,7 +222,7 @@
 	        return open($parent);
 	      }
 	    });
-	    $('.' + settings.buttonMoreMenuClass, $moreMenu).click(function(e) {
+	    $('.' + settings.moreModifier, $moreMenu).click(function(e) {
 	      e.stopPropagation();
 	      e.preventDefault();
 	      if ($moreMenu.hasClass(settings.openClass)) {
@@ -226,7 +231,7 @@
 	        return open($moreMenu);
 	      }
 	    });
-	    return $nav.children('.' + settings.buttonRootsMenuClass).on('click', function(e) {
+	    return $nav.children('.' + settings.rootsModifier).on('click', function(e) {
 	      e.stopPropagation();
 	      e.preventDefault();
 	      if ($nav.hasClass(settings.rootsOpenClass) === true) {
@@ -284,13 +289,13 @@
 	  }
 	  resizer = function() {
 	    if ($(window).width() <= breakpoint) {
-	      $nav.removeClass(settings.largeClass);
+	      $nav.removeClass(settings.largeModifier);
 	      closeMenu();
 	      if ($.contains(document.documentElement, $moreMenu[0])) {
 	        return removeMoreMenu();
 	      }
 	    } else {
-	      $nav.addClass(settings.largeClass);
+	      $nav.addClass(settings.largeModifier);
 	      closeMenu();
 	      if (!$.contains(document.documentElement, $moreMenu[0])) {
 	        addMoreMenu();
@@ -300,6 +305,7 @@
 	  };
 	  this.makeNav = function() {
 	    $current = $('li.' + settings.currentClass, $navUl);
+	    addItemClasses();
 	    addParentClasses();
 	    addBreadcrumbClasses();
 	    addButtons();

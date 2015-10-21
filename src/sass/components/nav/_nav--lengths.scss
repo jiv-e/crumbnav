@@ -1,0 +1,15 @@
+.#{$nav}:not(.-length-0) {
+  > .#{$title} {
+    display: none;
+  }
+}
+
+// Two items in breadcrumb.
+.#{$nav}.-length-2 {
+  // Top parent is not floated in the breadcrumb for mobile.
+  &.#{$closedClass}:not(.#{$largeModifier}) {
+    .#{$topModifier} > a {
+      float: none;
+    }
+  }
+}

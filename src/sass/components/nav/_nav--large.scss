@@ -1,0 +1,11 @@
+.js .#{$firstLevelClass} {
+  &.#{$largeModifier} {
+    @include horizontal-flex-menu;
+  }
+}
+
+.#{$nav}.#{$largeModifier} {
+  > .#{$title} {
+    display: none;
+  }
+}

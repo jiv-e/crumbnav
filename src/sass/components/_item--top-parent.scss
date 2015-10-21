@@ -1,6 +1,7 @@
-.#{$topParentClass} {
+.#{$topModifier} {
+  position: relative;
 
-  .#{$openClass}:not(.#{$navClass}-length-0) > ul > & {
+  .#{$openClass}:not(.#{$nav}.-length-0) > ul > &:not(.#{$breadcrumbClass}) {
     display: none;
   }
 }

@@ -69,6 +69,7 @@
   flex-basis: 0;
   text-align: center; }
   .c-nav.-large.cn-open-roots > ul > li > ul {
+    min-width: 100%;
     clear: both;
     display: none;
     flex-direction: column;
@@ -79,7 +80,8 @@
       .c-nav.-large.cn-open-roots > ul > li > ul > li .c-button {
         display: block; }
   .c-nav.-large.cn-open-roots > ul > li:hover > ul {
-    display: flex; }
+    display: flex;
+    position: absolute; }
 
 .c-nav.-large.cn-open-roots .-main {
   display: none; }
@@ -94,6 +96,7 @@
   flex-basis: 0;
   text-align: center; }
   .js .crumbnav--first-level.-large > ul > li > ul {
+    min-width: 100%;
     clear: both;
     display: none;
     flex-direction: column;
@@ -104,7 +107,8 @@
       .js .crumbnav--first-level.-large > ul > li > ul > li .c-button {
         display: block; }
   .js .crumbnav--first-level.-large > ul > li:hover > ul {
-    display: flex; }
+    display: flex;
+    position: absolute; }
 
 .js .crumbnav--first-level.-large .-main {
   display: none; }
@@ -120,7 +124,7 @@
   .-large.cn-close.cn-close-roots .-in-1 > ul > li > ul {
     position: absolute;
     top: 50px;
-    min-width: 200px;
+    min-width: 100%;
     clear: both;
     display: none;
     flex-direction: column;
@@ -132,7 +136,8 @@
       .-large.cn-close.cn-close-roots .-in-1 > ul > li > ul > li .c-button {
         display: block; }
   .-large.cn-close.cn-close-roots .-in-1 > ul > li:hover > ul {
-    display: flex; }
+    display: flex;
+    position: absolute; }
 
 .-large.cn-close.cn-close-roots .-in-1 .-main {
   display: none; }

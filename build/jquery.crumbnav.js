@@ -1,41 +1,41 @@
 /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
-
+/******/
 /******/ 	// The require function
 /******/ 	function __webpack_require__(moduleId) {
-
+/******/
 /******/ 		// Check if module is in cache
 /******/ 		if(installedModules[moduleId])
 /******/ 			return installedModules[moduleId].exports;
-
+/******/
 /******/ 		// Create a new module (and put it into the cache)
 /******/ 		var module = installedModules[moduleId] = {
 /******/ 			exports: {},
 /******/ 			id: moduleId,
 /******/ 			loaded: false
 /******/ 		};
-
+/******/
 /******/ 		// Execute the module function
 /******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
-
+/******/
 /******/ 		// Flag the module as loaded
 /******/ 		module.loaded = true;
-
+/******/
 /******/ 		// Return the exports of the module
 /******/ 		return module.exports;
 /******/ 	}
-
-
+/******/
+/******/
 /******/ 	// expose the modules object (__webpack_modules__)
 /******/ 	__webpack_require__.m = modules;
-
+/******/
 /******/ 	// expose the module cache
 /******/ 	__webpack_require__.c = installedModules;
-
+/******/
 /******/ 	// __webpack_public_path__
 /******/ 	__webpack_require__.p = "/";
-
+/******/
 /******/ 	// Load entry module and return exports
 /******/ 	return __webpack_require__(0);
 /******/ })
@@ -47,24 +47,23 @@
 	
 	/*
 		crumbnav.js 0.1
-
+	
 	  Created by Juho Viitasalo
-
+	
 		Based on flexnav by Jason Weaver http://jasonweaver.name
 		Released under http://unlicense.org/
 	 */
 	var $;
-
+	
 	__webpack_require__(1);
-
+	
 	$ = jQuery;
-
-	$('html').removeClass('no-js').addClass('js');
-
+	
 	$(function() {});
-
+	
 	$.fn.crumbnav = function(options) {
 	  var $breadcrumb, $breadcrumbLength, $button, $current, $currentChildMenu, $moreMenu, $nav, $navUl, $parentButtons, $parents, $root, $topParentButtons, $topParents, addBreadcrumbClasses, addButtons, addItemClasses, addListeners, addMoreMenu, addParentClasses, breakpoint, calcWidth, close, closeMenu, closeRootsMenu, getCloseElements, getOpenElements, open, openMenu, openRootsMenu, removeMoreMenu, resizer, settings;
+	  $('html').removeClass('no-js').addClass('js');
 	  settings = $.extend({
 	    'navClass': 'c-nav',
 	    'titleClass': 'title',
@@ -329,3 +328,4 @@
 
 /***/ }
 /******/ ]);
+//# sourceMappingURL=jquery.crumbnav.js.map

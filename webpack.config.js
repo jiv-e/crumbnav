@@ -15,7 +15,7 @@ module.exports = {
     filename: '[name].js',
     publicPath: '/'
   },
-  //devtool: 'source-map',
+  devtool: 'source-map',
   module: {
     loaders: [
       { test: /\.coffee/, loader: 'coffee-loader' },

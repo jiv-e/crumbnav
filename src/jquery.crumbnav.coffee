@@ -16,13 +16,14 @@ require('./sass/crumbnav.scss')
 # Use local alias for $.noConflict() compatibility
 $ = jQuery
 
-$('html').removeClass('no-js').addClass('js')
 
 $ ->
 #attachFastClick = Origami.fastclick;
 #attachFastClick(document.body);
 
 $.fn.crumbnav = (options) ->
+
+  $('html').removeClass('no-js').addClass('js')
   settings = $.extend({
       'navClass': 'c-nav',
       'titleClass': 'title',

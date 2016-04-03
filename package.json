@@ -6,13 +6,13 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "clean": "rm -rf build",
-    "watch": "webpack --config webpack.config.dev.js -w",
+    "watch": "webpack --config webpack.config.js -w",
     "dev-server": "node build/server/webpack",
     "server": "npm run build & nodemon build/server/server.js",
     "start": "npm run watch & npm run dev-server & npm run server",
     "build": "npm run build-babel; npm run copy-styles; npm run build-webpack",
     "build-babel": "npm run clean & ./node_modules/.bin/babel src -d build --experimental",
-    "build-webpack": "webpack --config webpack.config.build.js --optimize-minimize",
+    "build-webpack": "webpack --config webpack.config.js --optimize-minimize",
     "copy-styles": "rsync -avmL --include='*.scss' -f 'hide,! */' ./src/ ./build"
   },
   "repository": {

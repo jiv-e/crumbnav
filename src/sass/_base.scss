@@ -1,7 +1,52 @@
 /* crumbnav Base Styles */
 
 .no-js {
-  //TODO Make no-js mode better.
+  .#{$nav} {
+    @include horizontal-flex-menu();
+  }
+
+  .#{$nav} ul {
+    width: 100%;
+    min-width: 24em;
+    list-style: none;
+    position: relative;
+    float: left;
+  }
+
+  .#{$nav} ul a {
+    display: block;
+  }
+
+  .#{$nav} ul li {
+    line-height: $elementHeight;
+    position: relative;
+    float: left;
+  }
+
+  .#{$nav} ul ul {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+  }
+
+  .#{$nav} ul ul li {
+    float: none;
+    width: 100%;
+  }
+
+  .#{$nav} ul ul ul {
+    top: 0;
+    left: 100%;
+  }
+
+  .#{$nav} ul > li:last-child ul ul {
+    left: -100%;
+  }
+
+  .#{$nav} ul li:hover > ul {
+    display: block;
+  }
 }
 
 .#{$openClass} {

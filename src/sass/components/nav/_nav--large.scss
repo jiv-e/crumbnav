@@ -1,4 +1,4 @@
-.js .#{$firstLevelClass} {
+.#{$firstLevelClass} {
   &.#{$largeModifier} {
     @include horizontal-flex-menu;
   }

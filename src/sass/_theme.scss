@@ -1,11 +1,37 @@
 /* crumbnav Theme Styles */
-@import "mixins";
 
-// Basic link styles
-.#{$nav} li > a {
+// Sley green
+$sleyGreen: #84D200;
+
+$white: #fff;
+$color-light-gray: #ddd;
+
+$body-text-color: #333;
+$link-text-color: #111;
+$main-color: $sleyGreen;
+
+// Sley colors
+$sley-colors: (
+        color-purple: #9342B4, // Etsivälle
+        color-green: #1DB166, // Tietoa Sleystä
+        color-blue: #0097AE, // Lehdet
+        color-yellow: #FDB529, // Raamattu tutuksi
+        color-red: #CB599E, // Lähetystyö
+        color-gray: #585858, // Kotimaan toiminta
+);
+$menu-lighten-percent: 7;
+
+.#{$nav} li > a,
+.#{$nav}.#{$largeModifier}.#{$closedClass}.#{$firstLevelClass} li > a,
+.#{$title} {
+  /*-moz-transition: background .2s ease-in;
+  -o-transition: background .2s ease-in;
+  -webkit-transition: background .2s ease-in;
+  transition: background .2s ease-in;*/
   padding: 0 $linkPadding;
   color: $navTextColor;
-  border-bottom: $borderWidth solid rgba(0, 0, 0, .15);
+  border-bottom: $borderWidth solid rgba(0, 0, 0, .05);
+  text-decoration: none;
 }
 .#{$nav}.#{$largeModifier} li > a {
   border: none;
@@ -17,8 +43,9 @@
   }
 
   li.#{$currentClass} > a {
+    //background-color: $currentColor;
     color: $currentNavTextColor;
-    font-weight: bold;
+    font-weight: 600;
   }
   ul a,
   .#{$rootClass}.-in-0 {
@@ -71,14 +98,7 @@
   }
 }
 
-.#{$openClass} .-in-0 > a {
-  padding-left: $elementHeight;
-}
-
 .#{$nav} .#{$rootsOpenClass} {
-  > a {
-   padding-left: $elementHeight;
-  }
   &.#{$breadcrumbClass} > a {
     color: $currentNavTextColor;
   }
@@ -195,12 +215,20 @@
   > i {
     border: none;
     color: #666;
-    background: url("../img/plus.png") center center no-repeat;
+    &:after {
+      content: "+";
+      font-style: normal;
+      color: $arrowbuttonColor;
+      //@include fontsize(40);
+      font-size: 1em;
+      line-height: $elementHeight;
+    }
   }
-  .#{$openClass} > & {
-    > i {
-      //Submenu button icon
-      background: url("../img/minus.png") center center no-repeat;
+  .#{$openClass} > & > i {
+    //Submenu button icon
+    &:after {
+      content: "-";
+      line-height: $elementHeight*0.86;
     }
   }
 }
@@ -217,6 +245,54 @@
       > li {
         position: relative;
       }
+    }
+  }
+}
+
+@each $color-class, $color in $sley-colors {
+
+  .#{$nav} .#{$color-class} {
+    &:hover > a,
+    &.#{$openClass} > a,
+    &.#{$breadcrumbClass} > a,
+    &.#{$rootClass}.-in-0 {
+      background-color: $color;
+    }
+    ul a,
+    &.#{$rootClass}.-in-1 {
+      background-color: lighten($color, 7%);
+    }
+    ul ul a,
+    &.#{$rootClass}.-in-2 {
+      background-color: lighten($color, 14%);
+    }
+    ul ul ul a,
+    &.#{$rootClass}.-in-3 {
+      background-color: lighten($color, 21%);
+    }
+    ul ul ul ul a,
+    &.#{$rootClass}.-in-4 {
+      background-color: lighten($color, 28%);
+    }
+  }
+}
+
+@each $color-class, $color in $sley-colors {
+  .#{$color-class}.-out-0 > a:after {
+    border-left-color: $color;
+  }
+  .#{$color-class} .#{$breadcrumbClass} {
+    &.-out-1 > a:after {
+      border-left-color: lighten($color, $menu-lighten-percent*1%);
+    }
+    &.-out-2 > a:after {
+      border-left-color: lighten($color, $menu-lighten-percent*2%);
+    }
+    &.-out-3 > a:after {
+      border-left-color: lighten($color, $menu-lighten-percent*3%);
+    }
+    &.-out-4 > a:after {
+      border-left-color: lighten($color, $menu-lighten-percent*4%);
     }
   }
 }

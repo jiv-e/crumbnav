@@ -128,7 +128,8 @@
         position: absolute;
         top: $elementHeight;
       }
-      min-width: 100%;
+      width: 100%;
+      min-width: 16em;
       clear: both;
       display: none;
       flex-direction: column;
@@ -149,6 +150,10 @@
       display: flex;
       position: absolute;
     }
+  }
+  // Last second level menu - prevent overflow from right.
+  > ul > li:last-child > ul {
+    right: 0;
   }
   .#{$mainModifier} {
     display: none;
